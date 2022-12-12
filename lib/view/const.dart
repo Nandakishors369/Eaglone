@@ -11,7 +11,7 @@ final kheight20 = SizedBox(
   height: 10.h,
 );
 var sizedBox15 = SizedBox(
-  height: 5.h,
+  height: 10.h,
 );
 const kgrey = Color(0xFF90A4AE);
 var themeGreen = Color(0xFF3BECB8);

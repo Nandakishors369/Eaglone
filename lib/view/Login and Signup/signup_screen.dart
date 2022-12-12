@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:ui';
-
+import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/widgets/common_widgets.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -26,9 +24,18 @@ class _SignupScreenState extends State<SignupScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /*  Image.asset(
-              "assets/Pink Red W Letter Animated Abstract Shape Tech Logo (5000 × 5000px) (1).png",
-              height: 180,
+            // kwidth20,
+            /*   Row(
+              // mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                Image.asset(
+                  "assets/Untitled design (2).png", height: 100.h, width: 420.w,
+                  //height: 100,
+                ),
+              ],
             ), */
             //Lottie.asset('assets/38435-register (1).json', height: 180.h),
             Row(
@@ -63,7 +70,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   Text("Aleady Have An Account ?"),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ));
+                    },
                     child: Text(
                       "Click Here",
                       style: GoogleFonts.karla(

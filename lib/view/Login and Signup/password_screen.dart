@@ -1,0 +1,63 @@
+import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
+import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
+import 'package:eaglone/view/Login%20and%20Signup/widgets/common_widgets.dart';
+import 'package:eaglone/view/const.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+
+class PasswordScreen extends StatefulWidget {
+  const PasswordScreen({super.key});
+
+  @override
+  State<PasswordScreen> createState() => _PasswordScreenState();
+}
+
+class _PasswordScreenState extends State<PasswordScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: SafeArea(
+            child: Column(children: [
+      Column(
+        children: [
+          sizedBox15,
+          Lottie.asset('assets/Comp 1.json', height: 340.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              kwidth20,
+              Text(
+                "Reset\nYour Password",
+                style: GoogleFonts.poppins(textStyle: signupHeading),
+              ),
+            ],
+          ),
+          kheight20,
+          subHeading("New Password"),
+          textField("Enter Your Password"),
+          sizedBox15,
+          subHeading("Confirm Password"),
+          textField("Enter Your Password"),
+          sizedBox15,
+          sizedBox15,
+          sizedBox15,
+          SizedBox(
+            width: 270.w,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(backgroundColor: themeGreen),
+              child: Text(
+                "Continue",
+                style: GoogleFonts.poppins(),
+              ),
+            ),
+          )
+        ],
+      ),
+    ])));
+  }
+}
