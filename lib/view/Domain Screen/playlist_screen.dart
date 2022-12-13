@@ -4,45 +4,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class NewsScreen extends StatefulWidget {
-  const NewsScreen({super.key});
+class PlaylistScreen extends StatefulWidget {
+  const PlaylistScreen({super.key});
 
   @override
-  State<NewsScreen> createState() => _NewsScreenState();
+  State<PlaylistScreen> createState() => _PlaylistScreenState();
 }
 
-class _NewsScreenState extends State<NewsScreen> {
+class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              kheigh20,
-              Row(
-                children: [
-                  kwidth15,
-                  appHeadings(content: "Top Tech News"),
-                ],
-              ),
-              kheigh20,
-              ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return newsCard();
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 10,
-                    );
-                  },
-                  itemCount: 6)
-            ],
-          ),
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            kheigh20,
+            Row(
+              children: [kwidth15, appHeadings(content: "Dart - Fundementals")],
+            ),
+            kheight10,
+            kheigh20,
+            ListView.separated(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return newsCard();
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(
+                    height: 10,
+                  );
+                },
+                itemCount: 6)
+          ],
         ),
-      ),
+      )),
     );
   }
 

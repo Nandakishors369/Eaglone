@@ -2,6 +2,7 @@ import 'package:eaglone/view/Home%20Screen/home_screen.dart';
 import 'package:eaglone/view/Navigation/tabbar.dart';
 import 'package:eaglone/view/News%20Screen/news_screen.dart';
 import 'package:eaglone/view/Paid%20Course%20Screen/paidcourse_screen,.dart';
+import 'package:eaglone/view/Search%20Screen/search_screen.dart';
 import 'package:eaglone/view/Settings%20Screen/settings_screen.dart';
 import 'package:eaglone/view/Splash%20Screens/splash_screen.dart';
 import 'package:eaglone/view/const.dart';
@@ -40,7 +41,13 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
           TabBarMaterialWidget(inddex: indexx, onChangedTab: OnchangedtTab),
       floatingActionButton: FloatingActionButton(
         backgroundColor: themeGreen,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchScreen(),
+              ));
+        },
         child: Icon(Iconsax.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:eaglone/view/Domain%20Screen/domain_screen.dart';
+import 'package:eaglone/view/Domain%20Search/Dsearch_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         body: SlidingUpPanel(
           backdropEnabled: true,
-          color: Colors.transparent,
+          color: Color.fromRGBO(0, 0, 0, 0),
           minHeight: 335.h,
           maxHeight: 470.h,
           panel: Container(
@@ -40,23 +42,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 124.h,
-                          width: 190.w,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                "Flutter",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 35.sp,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DomainScreen(),
+                                ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blue),
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(10)),
+                            height: 124.h,
+                            width: 190.w,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  "Flutter",
+                                  style: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 35.sp,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -65,7 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              color: Color(0xFFEAD41C),
+                              border: Border.all(
+                                color: Color(0xFFEAD41C),
+                              ),
+                              color: Color.fromARGB(255, 255, 255, 255),
                               borderRadius: BorderRadius.circular(10)),
                           height: 124.h,
                           width: 190.w,
@@ -77,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "MERN",
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    color: Colors.white,
+                                    color: Color(0xFFEAD41C),
                                     fontWeight: FontWeight.w500,
                                     fontSize: 35.sp,
                                   ),
@@ -97,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: Color(0xFFE01B20),
+                              color: Color.fromARGB(255, 58, 58, 58),
                               borderRadius: BorderRadius.circular(10)),
                           height: 124.h,
                           width: 190.w,
@@ -106,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: Text(
-                                "Java",
+                                "Golang",
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     color: Colors.white,
@@ -145,22 +160,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   kheigh20,
-                  Container(
-                    height: 60.h,
-                    width: 400.w,
-                    decoration: BoxDecoration(
-                        color: themeGreen,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          "Explore All Courses",
-                          style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 30.sp,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DSearchScreen(),
+                          ));
+                    },
+                    child: Container(
+                      height: 60.h,
+                      width: 400.w,
+                      decoration: BoxDecoration(
+                          color: themeGreen,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            "Explore All Courses",
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 30.sp,
+                              ),
                             ),
                           ),
                         ),
