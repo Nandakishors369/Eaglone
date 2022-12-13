@@ -1,5 +1,5 @@
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
-import 'package:eaglone/view/home_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

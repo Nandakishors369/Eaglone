@@ -38,10 +38,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-          kheight20,
+          kheight10,
           subHeading("E-Mail"),
           textField("Enter Your E-Mail"),
-          sizedBox15,
+          kheight10,
           subHeading("Password"),
           textField("Enter Your Password"),
           Row(

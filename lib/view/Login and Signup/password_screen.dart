@@ -24,7 +24,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             child: Column(children: [
       Column(
         children: [
-          sizedBox15,
+          kheight10,
           Lottie.asset('assets/Comp 1.json', height: 340.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -36,15 +36,15 @@ class _PasswordScreenState extends State<PasswordScreen> {
               ),
             ],
           ),
-          kheight20,
+          kheight10,
           subHeading("New Password"),
           textField("Enter Your Password"),
-          sizedBox15,
+          kheight10,
           subHeading("Confirm Password"),
           textField("Enter Your Password"),
-          sizedBox15,
-          sizedBox15,
-          sizedBox15,
+          kheight10,
+          kheight10,
+          kheight10,
           SizedBox(
             width: 270.w,
             child: ElevatedButton(

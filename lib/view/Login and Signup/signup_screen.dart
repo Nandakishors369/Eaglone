@@ -2,6 +2,7 @@
 
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/widgets/common_widgets.dart';
+import 'package:eaglone/view/Splash%20Screens/splash_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:flutter/material.dart';
 
@@ -48,19 +49,19 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ],
             ),
-            kheight20,
+            kheight10,
             subHeading("Name"),
             textField("Enter Your Name"),
-            sizedBox15,
+            kheight10,
             subHeading("E-Mail"),
             textField("Enter Your E-Mail"),
-            sizedBox15,
+            kheight10,
             subHeading("Phone"),
             textField("Enter Your Phone Number"),
-            sizedBox15,
+            kheight10,
             subHeading("Password"),
             textField("Enter Your Password"),
-            sizedBox15,
+            kheight10,
             subHeading("Confirm-Password"),
             textField("Enter Your Password"),
             Padding(

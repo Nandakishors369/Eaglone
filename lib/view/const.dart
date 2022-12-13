@@ -7,11 +7,15 @@ final signupHeading = TextStyle(fontSize: 36.sp, fontWeight: FontWeight.w700);
 final kwidth20 = SizedBox(
   width: 20.w,
 );
-final kheight20 = SizedBox(
+final kheight10 = SizedBox(
   height: 10.h,
 );
-var sizedBox15 = SizedBox(
-  height: 10.h,
-);
+
 const kgrey = Color(0xFF90A4AE);
 var themeGreen = Color(0xFF3BECB8);
+var kheigh20 = SizedBox(
+  height: 20.h,
+);
+var kwidth15 = SizedBox(
+  width: 15.w,
+);
