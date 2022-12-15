@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:eaglone/view/Domain%20Screen/domain_screen.dart';
 import 'package:eaglone/view/Domain%20Search/Dsearch_screen.dart';
+import 'package:eaglone/view/Home%20Screen/premium_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -52,8 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue),
-                                color: Color.fromARGB(255, 255, 255, 255),
+                                color: Colors.blue,
                                 borderRadius: BorderRadius.circular(10)),
                             height: 124.h,
                             width: 190.w,
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   "Flutter",
                                   style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
-                                      color: Colors.blue,
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 35.sp,
                                     ),
@@ -77,10 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Color(0xFFEAD41C),
-                              ),
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: Color(0xFFEAD41C),
                               borderRadius: BorderRadius.circular(10)),
                           height: 124.h,
                           width: 190.w,
@@ -92,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "MERN",
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    color: Color(0xFFEAD41C),
+                                    color: Color.fromARGB(255, 255, 255, 255),
                                     fontWeight: FontWeight.w500,
                                     fontSize: 35.sp,
                                   ),
@@ -170,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Container(
                       height: 60.h,
-                      width: 400.w,
+                      width: 380.w,
                       decoration: BoxDecoration(
                           color: themeGreen,
                           borderRadius: BorderRadius.circular(10)),
@@ -183,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               textStyle: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 30.sp,
+                                fontSize: 25.sp,
                               ),
                             ),
                           ),
@@ -235,28 +232,37 @@ class HomeBody extends StatelessWidget {
         kheigh20,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  "Explore Premium \nCourses",
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 30.sp,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PremiumScreen(),
+                  ));
+            },
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    "Explore Premium \nCourses",
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 30.sp,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            height: 168.h,
-            width: 400.w,
-            decoration: BoxDecoration(
-              color: themeGreen,
-              borderRadius: BorderRadius.circular(10.r),
+              height: 168.h,
+              width: 400.w,
+              decoration: BoxDecoration(
+                color: themeGreen,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
             ),
           ),
         ),
@@ -269,7 +275,7 @@ class HomeBody extends StatelessWidget {
             ),
             Container(
               height: 148.h,
-              width: 190,
+              width: 190.w,
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: themeGreen, width: 2),

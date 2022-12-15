@@ -1,0 +1,115 @@
+import 'package:eaglone/view/widgets/common_widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
+
+import '../const.dart';
+
+class PaymentScreen extends StatefulWidget {
+  const PaymentScreen({super.key});
+
+  @override
+  State<PaymentScreen> createState() => _PaymentScreenState();
+}
+
+class _PaymentScreenState extends State<PaymentScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+          child: Column(
+        children: [
+          kheigh20,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(Iconsax.arrow_left),
+                Text(
+                  "Payment",
+                  style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.w500)),
+                ),
+                Icon(Icons.delete_outline),
+              ],
+            ),
+          ),
+          kheigh20,
+          kheigh20,
+          SizedBox(
+            height: 320.h,
+            width: 400.w,
+            child: Card(
+                child: Column(
+              children: [
+                kheight10,
+                Row(
+                  children: [
+                    kwidth15,
+                    appHeadings(content: "Choose Payment Method"),
+                  ],
+                ),
+              ],
+            )),
+          ),
+          SizedBox(
+            height: 320.h,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Total",
+                  style: GoogleFonts.poppins(
+                      textStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
+                ),
+                Text(
+                  "499/-",
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                          color: themeGreen,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500)),
+                ),
+              ],
+            ),
+          ),
+          kheigh20,
+          kheigh20,
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              height: 60.h,
+              width: 400.w,
+              decoration: BoxDecoration(
+                  color: themeGreen, borderRadius: BorderRadius.circular(5)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    "Confirm And Pay",
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 25.sp,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      )),
+    );
+  }
+}

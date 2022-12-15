@@ -3,6 +3,8 @@ import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({super.key});
@@ -33,7 +35,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(
-                    height: 10,
+                    height: 10.h,
                   );
                 },
                 itemCount: 6)
@@ -47,20 +49,28 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
       child: SizedBox(
-        width: 400,
-        height: 400,
+        width: 400.w,
+        height: 150.h,
         child: Card(
           elevation: 10,
-          child: Column(
+          child: Row(
             children: [
-              Image.network(
-                "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-                fit: BoxFit.cover,
+              kwidth15,
+              Container(
+                color: themeGreen,
+                height: 100.h,
+                width: 150.w,
               ),
-              kheigh20,
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: appHeadings(content: "Heading Will be Displayed Here"),
+              kwidth15,
+              Column(
+                children: [
+                  kheigh20,
+                  kheight10,
+                  Text(
+                    "Title of the video",
+                    style: GoogleFonts.poppins(),
+                  ),
+                ],
               )
             ],
           ),

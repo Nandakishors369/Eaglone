@@ -13,17 +13,24 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        title: appHeadings(content: "Intorduction"),
+      ),
       body: SafeArea(
           child: Column(
         children: [
           kheigh20,
-          Row(
+          /* Row(
             children: [
               kwidth15,
               appHeadings(content: "Introduction"),
             ],
-          ),
-          kheigh20,
+          ), */
+          //kheigh20,
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Text(
