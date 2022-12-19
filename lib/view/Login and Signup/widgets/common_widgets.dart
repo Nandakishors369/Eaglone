@@ -22,11 +22,11 @@ Padding textField(String hint) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
     child: TextFormField(
-      cursorColor: Color.fromARGB(255, 0, 0, 0),
+      cursorColor: kblack, //
       decoration: InputDecoration(
           hintText: "$hint",
           hintStyle: GoogleFonts.karla(textStyle: TextStyle()),
-          focusColor: Colors.black,
+          focusColor: kblack,
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: kgrey),
               borderRadius: BorderRadius.circular(10.r)),

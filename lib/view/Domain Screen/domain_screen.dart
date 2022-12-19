@@ -18,7 +18,7 @@ class _DomainScreenState extends State<DomainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kwhite,
       body: SafeArea(
           child: Column(
         children: [
@@ -35,10 +35,11 @@ class _DomainScreenState extends State<DomainScreen> {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailsScreen(),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsScreen(),
+                  ),
+                );
               },
               child: Container(
                 child: Padding(
@@ -50,7 +51,7 @@ class _DomainScreenState extends State<DomainScreen> {
                         "Dart",
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
-                            color: Colors.blue,
+                            color: kblue,
                             fontWeight: FontWeight.w600,
                             fontSize: 30.sp,
                           ),
@@ -64,8 +65,8 @@ class _DomainScreenState extends State<DomainScreen> {
                 height: 168.h,
                 width: 400.w,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue),
-                  color: Colors.white,
+                  border: Border.all(color: kblue),
+                  color: kwhite,
                   borderRadius: BorderRadius.circular(10.r),
                 ),
               ),
@@ -75,7 +76,7 @@ class _DomainScreenState extends State<DomainScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Text(
-              "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+              "$sampleText",
               style: GoogleFonts.poppins(),
             ),
           ),
@@ -93,7 +94,7 @@ class _DomainScreenState extends State<DomainScreen> {
                       "Flutter",
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          color: Colors.blue,
+                          color: kblue,
                           fontWeight: FontWeight.w600,
                           fontSize: 30.sp,
                         ),
@@ -107,8 +108,8 @@ class _DomainScreenState extends State<DomainScreen> {
               height: 168.h,
               width: 400.w,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue),
-                color: Colors.white,
+                border: Border.all(color: kblue),
+                color: kwhite,
                 borderRadius: BorderRadius.circular(10.r),
               ),
             ),
@@ -117,7 +118,7 @@ class _DomainScreenState extends State<DomainScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: Text(
-              "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+              "$sampleText",
               style: GoogleFonts.poppins(),
             ),
           )

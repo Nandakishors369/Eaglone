@@ -92,7 +92,7 @@ class _CartScreenState extends State<CartScreen> {
                     "Place Order",
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
-                        color: Colors.white,
+                        color: kwhite,
                         fontWeight: FontWeight.w500,
                         fontSize: 25.sp,
                       ),
@@ -135,7 +135,7 @@ class _CartScreenState extends State<CartScreen> {
                     Text(
                       "Product Details",
                       style: GoogleFonts.poppins(
-                          textStyle: TextStyle(fontSize: 20)),
+                          textStyle: TextStyle(fontSize: 20.sp)),
                     ),
                   ],
                 ),

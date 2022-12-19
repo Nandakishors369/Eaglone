@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   "or",
                   style: GoogleFonts.karla(
                     fontSize: 19.sp,
-                    textStyle: TextStyle(color: Colors.black),
+                    textStyle: TextStyle(color: kblack),
                   ),
                 )
               ],
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
             width: 270.w,
             child: ElevatedButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+              style: ElevatedButton.styleFrom(backgroundColor: kblack),
               child: Text(
                 "Continue With Google",
                 style: GoogleFonts.poppins(),

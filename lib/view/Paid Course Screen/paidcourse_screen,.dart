@@ -22,7 +22,7 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kwhite,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -58,7 +58,7 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
                     child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(10.r)),
                       color: Color.fromARGB(255, 40, 40, 40),
                     ),
                   ),
@@ -68,8 +68,8 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
                     child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10.r)),
+                      color: kblue,
                     ),
                   )
                 ],
@@ -171,7 +171,7 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
       children: [
         Container(
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: kwhite,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: themeGreen)),
           height: 120.h,
@@ -184,7 +184,7 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
               kwidth15,
               Image.network(
                 "https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.png",
-                height: 80,
+                height: 80.h,
               ),
             ],
           ),
@@ -196,7 +196,7 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
             "Node.js ",
             style: GoogleFonts.poppins(
                 textStyle:
-                    TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                    TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500)),
           ),
         ),
         Positioned(
@@ -206,9 +206,7 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
             "599/-",
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
-                    color: Colors.red,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500)),
+                    color: kred, fontSize: 15.sp, fontWeight: FontWeight.w500)),
           ),
         )
       ],

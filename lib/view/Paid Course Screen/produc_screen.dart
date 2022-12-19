@@ -100,15 +100,15 @@ class _ProductScreenState extends State<ProductScreen> {
                 Text(
                   "Total",
                   style: GoogleFonts.poppins(
-                      textStyle:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
+                      textStyle: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.w500)),
                 ),
                 Text(
                   "499/-",
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                           color: themeGreen,
-                          fontSize: 25,
+                          fontSize: 25.sp,
                           fontWeight: FontWeight.w500)),
                 ),
               ],
@@ -122,7 +122,7 @@ class _ProductScreenState extends State<ProductScreen> {
               height: 60.h,
               width: 400.w,
               decoration: BoxDecoration(
-                  color: themeGreen, borderRadius: BorderRadius.circular(5)),
+                  color: themeGreen, borderRadius: BorderRadius.circular(5.r)),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
@@ -130,7 +130,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     "Add to Basket",
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
-                        color: Colors.white,
+                        color: kwhite,
                         fontWeight: FontWeight.w500,
                         fontSize: 25.sp,
                       ),

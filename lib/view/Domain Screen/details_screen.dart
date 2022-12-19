@@ -13,113 +13,105 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kwhite,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: kwhite,
+        foregroundColor: kblack,
         elevation: 0,
         title: appHeadings(content: "Intorduction"),
       ),
       body: SafeArea(
-          child: Column(
-        children: [
-          kheigh20,
-          /* Row(
+        child: Column(
+          children: [
+            kheigh20,
+            /* Row(
             children: [
               kwidth15,
               appHeadings(content: "Introduction"),
             ],
           ), */
-          //kheigh20,
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Text(
-              "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
-              style: GoogleFonts.poppins(),
-            ),
-          ),
-          kheigh20,
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Text(
-              "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
-              style: GoogleFonts.poppins(),
-            ),
-          ),
-          kheigh20,
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Text(
-              "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
-              style: GoogleFonts.poppins(),
-            ),
-          ),
-          kheigh20,
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Text(
-              "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
-              style: GoogleFonts.poppins(),
-            ),
-          ),
-          kheigh20,
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 60.h,
-              width: 400.w,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    "Basic Instalation",
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 25.sp,
+            //kheigh20,
+            details(),
+            kheigh20,
+            details(),
+            kheigh20,
+            details(),
+            kheigh20,
+            details(),
+            kheigh20,
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                height: 60.h,
+                width: 400.w,
+                decoration: BoxDecoration(
+                  color: kblue,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      "Basic Instalation",
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          color: kwhite,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25.sp,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          kheigh20,
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
+            kheigh20,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => PlaylistScreen(),
-                  ));
-            },
-            child: Container(
-              height: 60.h,
-              width: 400.w,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    "Go to Tutorials",
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 25.sp,
+                  ),
+                );
+              },
+              child: Container(
+                height: 60.h,
+                width: 400.w,
+                decoration: BoxDecoration(
+                  color: kblue,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      "Go to Tutorials",
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          color: kwhite,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25.sp,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
-      )),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding details() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+      child: Text(
+        "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+        style: GoogleFonts.poppins(),
+      ),
     );
   }
 }

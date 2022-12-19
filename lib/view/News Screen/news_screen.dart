@@ -3,6 +3,7 @@ import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -35,7 +36,7 @@ class _NewsScreenState extends State<NewsScreen> {
                   },
                   separatorBuilder: (context, index) {
                     return SizedBox(
-                      height: 10,
+                      height: 10.h,
                     );
                   },
                   itemCount: 6)
@@ -50,8 +51,8 @@ class _NewsScreenState extends State<NewsScreen> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
       child: SizedBox(
-        width: 400,
-        height: 400,
+        width: 400.w,
+        height: 400.h,
         child: Card(
           elevation: 10,
           child: Column(

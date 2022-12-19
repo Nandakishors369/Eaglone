@@ -39,7 +39,7 @@ class _TabBarMaterialWidgetState extends State<TabBarMaterialWidget> {
   Widget buildtabitem({required int index, required Icon icon}) {
     final isSelected = index == widget.inddex;
     return IconTheme(
-        data: IconThemeData(color: isSelected ? themeGreen : Colors.black),
+        data: IconThemeData(color: isSelected ? themeGreen : kblack),
         child: IconButton(
             onPressed: () => widget.onChangedTab(index), icon: icon));
   }

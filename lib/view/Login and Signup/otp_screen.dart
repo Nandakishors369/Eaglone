@@ -81,7 +81,7 @@ class _OtpScreenState extends State<OtpScreen> {
               child: Text(
                 "Resend OTP",
                 style: GoogleFonts.karla(
-                  textStyle: TextStyle(fontSize: 17, color: themeGreen),
+                  textStyle: TextStyle(fontSize: 17.sp, color: themeGreen),
                 ),
               ),
             )
