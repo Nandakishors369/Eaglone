@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "661569067297",
+    "project_id": "eaglone-auth",
+    "storage_bucket": "eaglone-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661569067297:android:5d03050edc15d1ca8cc660",
+        "android_client_info": {
+          "package_name": "in.brototype.eaglone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661569067297-hrv3musg0tp4tqqoltk5ufkmqdosmfrd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwwE_q2mqqQRr8_oENqzQBP3z0GWIqTT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661569067297-hrv3musg0tp4tqqoltk5ufkmqdosmfrd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

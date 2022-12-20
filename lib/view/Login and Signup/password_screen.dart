@@ -16,6 +16,9 @@ class PasswordScreen extends StatefulWidget {
   State<PasswordScreen> createState() => _PasswordScreenState();
 }
 
+TextEditingController rpassController = TextEditingController();
+TextEditingController rcpassController = TextEditingController();
+
 class _PasswordScreenState extends State<PasswordScreen> {
   @override
   Widget build(BuildContext context) {
@@ -38,10 +41,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
           ),
           kheight10,
           subHeading("New Password"),
-          textField("Enter Your Password"),
+          textField(hint: "Enter Your Password", controller: rpassController),
           kheight10,
           subHeading("Confirm Password"),
-          textField("Enter Your Password"),
+          textField(hint: "Enter Your Password", controller: rcpassController),
           kheight10,
           kheight10,
           kheight10,

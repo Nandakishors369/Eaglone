@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -42,7 +44,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             kheigh20,
             headingss(heading: "App Settings"),
             kheigh20,
-            headingss(heading: "Logout")
+            headingss(heading: "Logout"),
+            ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  //logoutUser(context: context);
+                },
+                child: Text("Logout"))
           ],
         ),
       )),
@@ -69,5 +77,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         elevation: 10,
       ),
     );
+  }
+
+  void logoutUser({required BuildContext context}) {
+    FirebaseAuthMethods(FirebaseAuth.instance).signout(context);
   }
 }

@@ -18,21 +18,35 @@ Row subHeading(String heading) {
   );
 }
 
-Padding textField(String hint) {
+Padding textField(
+    {required String hint, required TextEditingController controller}) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
     child: TextFormField(
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'Field is required';
+        }
+
+        return null;
+      },
+      controller: controller,
       cursorColor: kblack, //
       decoration: InputDecoration(
-          hintText: "$hint",
-          hintStyle: GoogleFonts.karla(textStyle: TextStyle()),
-          focusColor: kblack,
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: kgrey),
-              borderRadius: BorderRadius.circular(10.r)),
-          border: OutlineInputBorder(
-              borderSide: BorderSide(color: kgrey),
-              borderRadius: BorderRadius.circular(10.r))),
+        hintText: "$hint",
+        hintStyle: GoogleFonts.karla(
+          textStyle: TextStyle(),
+        ),
+        focusColor: kblack,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: kgrey),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: kgrey),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
     ),
   );
 }

@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           maxHeight: 470.h,
           panel: Container(
               decoration: BoxDecoration(
-                  color: kwhite, borderRadius: BorderRadius.circular(20)),
+                  color: kwhite, borderRadius: BorderRadius.circular(20.r)),
               child: Column(
                 children: [
                   kheight10,

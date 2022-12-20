@@ -44,7 +44,8 @@ class _OtpScreenState extends State<OtpScreen> {
                 children: [
                   Text(
                     'A four digit OTP has been sent to your phone number\n +91 9074973331',
-                    style: GoogleFonts.poppins(),
+                    style: GoogleFonts.poppins(
+                        textStyle: TextStyle(fontSize: 15.sp)),
                   )
                 ],
               ),
