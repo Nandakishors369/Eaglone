@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
@@ -12,14 +13,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+class OtpScreen extends StatelessWidget {
+  TextEditingController codeController;
+  VoidCallback onPressed;
+  OtpScreen({
+    super.key,
+    required this.codeController,
+    required this.onPressed,
+  });
 
-  @override
-  State<OtpScreen> createState() => _OtpScreenState();
-}
-
-class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +56,7 @@ class _OtpScreenState extends State<OtpScreen> {
               height: 20.h,
             ),
             Pinput(
+              controller: codeController,
               length: 6,
               defaultPinTheme: PinTheme(
                 width: 56.w,
@@ -76,11 +79,20 @@ class _OtpScreenState extends State<OtpScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NavigationBarScreen(),
+                      builder: (context) => LoginUserScreen(),
                     ));
               },
               child: Text(
                 "Resend OTP",
+                style: GoogleFonts.karla(
+                  textStyle: TextStyle(fontSize: 17.sp, color: themeGreen),
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: onPressed,
+              child: Text(
+                "ok",
                 style: GoogleFonts.karla(
                   textStyle: TextStyle(fontSize: 17.sp, color: themeGreen),
                 ),

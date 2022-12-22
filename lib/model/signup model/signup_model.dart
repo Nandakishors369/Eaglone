@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class signupData {
   String name;
   String email;
@@ -22,4 +24,12 @@ class signupData {
         'pass': pass,
         'sId': sId
       };
+
+  static signupData fromJson(Map<String, dynamic> json) => signupData(
+        name: json['name'],
+        email: json['email'],
+        pass: json['pass'],
+        phone: json['phone'],
+        sId: json['sId'],
+      );
 }

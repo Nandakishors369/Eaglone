@@ -1,4 +1,8 @@
 import 'package:eaglone/main.dart';
+import 'package:eaglone/view/Home%20Screen/home_screen.dart';
+import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
+import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
+import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,5 +59,42 @@ class FirebaseAuthMethods {
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
+  }
+
+  //phone sign in
+  Future<void> phoneSignIn(BuildContext context, String phoneNumber) async {
+    TextEditingController codeController = TextEditingController();
+    await _auth.verifyPhoneNumber(
+        phoneNumber: "+91${phoneNumber}",
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _auth.signInWithCredential(credential);
+        },
+        verificationFailed: (e) {
+          showSnackBar(context, e.message!);
+        },
+        codeSent: ((String verificationId, int? resendToken) async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OtpScreen(
+                codeController: codeController,
+                onPressed: () async {
+                  PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                    verificationId: verificationId,
+                    smsCode: codeController.text.trim(),
+                  );
+                  await _auth.signInWithCredential(credential);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginUserScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        }),
+        codeAutoRetrievalTimeout: (verificationId) {});
   }
 }

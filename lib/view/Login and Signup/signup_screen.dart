@@ -96,7 +96,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       Text("Already A User"),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => LoginUserScreen(),
@@ -125,6 +125,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           pass: passwordController.text,
                           phone: phoneController.text,
                         );
+                        phoneSignIn();
+
                         nameController.clear();
                         emailController.clear();
                         phoneController.clear();
@@ -165,12 +167,13 @@ class _SignupScreenState extends State<SignupScreen> {
     final uid = user!.uid;
     final docUser = FirebaseFirestore.instance.collection('users').doc();
     final users = signupData(
-        name: name,
-        email: email,
-        pass: pass,
-        phone: phone,
-        id: docUser.id,
-        sId: uid);
+      name: name,
+      email: email,
+      pass: pass,
+      phone: phone,
+      id: docUser.id,
+      sId: uid,
+    );
     /*  final json = {
       'name': name,
       'age': 18,
@@ -179,5 +182,10 @@ class _SignupScreenState extends State<SignupScreen> {
 
     //create doc and write data to firebase
     await docUser.set(json);
+  }
+
+  void phoneSignIn() {
+    FirebaseAuthMethods(FirebaseAuth.instance)
+        .phoneSignIn(context, phoneController.text.trim());
   }
 }

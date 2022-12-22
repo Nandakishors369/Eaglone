@@ -1,5 +1,8 @@
 import 'package:eaglone/firebase_options.dart';
+import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
+import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
+import 'package:eaglone/view/Splash%20Screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: SignupScreen(),
+            home: SplashScreen(),
           );
         });
   }

@@ -1,7 +1,9 @@
 import 'dart:developer';
+
 import 'dart:ui';
 
 import 'package:eaglone/services/firebase_auth_methods.dart';
+import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/password_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
@@ -26,6 +28,7 @@ class LoginScreen extends StatefulWidget {
 
 TextEditingController lemailController = TextEditingController();
 TextEditingController lpassController = TextEditingController();
+late final tid;
 
 class _LoginScreenState extends State<LoginScreen> {
   @override

@@ -31,6 +31,7 @@ Padding textField(
         return null;
       },
       controller: controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor: kblack, //
       decoration: InputDecoration(
         hintText: "$hint",
