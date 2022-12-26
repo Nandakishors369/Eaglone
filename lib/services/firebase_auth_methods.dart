@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eaglone/main.dart';
 import 'package:eaglone/view/Home%20Screen/home_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
@@ -43,10 +45,19 @@ class FirebaseAuthMethods {
       ),
     );
     try {
-      await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      await _auth
+          .signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then(
+            (value) => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavigationBarScreen(),
+              ),
+            ),
+          );
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
@@ -59,6 +70,18 @@ class FirebaseAuthMethods {
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
+  }
+
+  Future<void> resetPassword(
+      {required String email, required BuildContext context}) async {
+    await _auth
+        .sendPasswordResetEmail(email: email)
+        .then(
+          (value) => showSnackBar(context, "Email has been Sent"),
+        )
+        .catchError((error) {
+      log('Error send passwoed = $error');
+    });
   }
 
   //phone sign in

@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eaglone/model/signup%20model/signup_model.dart';
 import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
@@ -23,20 +25,9 @@ import 'package:provider/provider.dart';
 
 import 'widgets/common_widgets.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-TextEditingController lemailController = TextEditingController();
-TextEditingController lpassController = TextEditingController();
-late final tid;
-var status;
-final lformGlobalKey = GlobalKey<FormState>();
-
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
+              GlobalKey<FormState> lformGlobalKey = GlobalKey<FormState>();
               return Form(
                 key: lformGlobalKey,
                 child: Column(
@@ -63,14 +55,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     kheight10,
                     subHeading("E-Mail"),
                     textField(
-                      hint: "Enter Your Email",
-                      controller: lemailController,
-                      type: "Enter a valid email",
-                      keyboard: TextInputType.emailAddress,
-                    ),
+                        hint: "Enter Your Email",
+                        controller: lemailController,
+                        type: "Enter a valid email",
+                        keyboard: TextInputType.emailAddress,
+                        len: 5),
                     kheight10,
                     subHeading("Password"),
-                    textField(
+                    ptextField(
                       hint: "Enter Your Password",
                       controller: lpassController,
                       type: "Enter a proper Password",
@@ -81,11 +73,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
+                            resetPass(
+                              email: lemailController.text.trim(),
+                              context: context,
+                            );
+
+                            /* Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => PasswordScreen(),
-                                ));
+                                )); */
                           },
                           child: Text(
                             "Forgot Password ?",
@@ -112,7 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               password: lpassController.text,
                               context: context,
                             );
-                            if (snapshot.hasData) {
+
+                            /*  if (snapshot.hasData) {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -121,10 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             } else {
                               showSnackBar(context, "Credentials Incorrect");
-                            }
+                            } */
                           }
-                          lemailController.clear();
-                          lpassController.clear();
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: themeGreen),
@@ -156,7 +152,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           final provider = Provider.of<GoolgeSignInProvider>(
                               context,
                               listen: false);
-                          provider.googleLogin();
+                          provider.googleLogin().then(
+                                (value) => Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NavigationBarScreen(),
+                                  ),
+                                ),
+                              );
                         },
                         style:
                             ElevatedButton.styleFrom(backgroundColor: kblack),
@@ -208,5 +211,26 @@ class _LoginScreenState extends State<LoginScreen> {
       password: password,
       context: context,
     );
+    lemailController.clear();
+    lpassController.clear();
+    nameController.clear();
+    /* .then(
+          (value) => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NavigationBarScreen(),
+            ),
+          ), */
+  }
+
+  Future resetPass(
+      {required String email, required BuildContext context}) async {
+    await FirebaseAuthMethods(FirebaseAuth.instance)
+        .resetPassword(email: email, context: context);
   }
 }
+
+TextEditingController lemailController = TextEditingController();
+TextEditingController lpassController = TextEditingController();
+late final tid;
+var status;

@@ -1,19 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class signupData {
-  String name;
-  String email;
+  String? name;
+  String? email;
 
-  String pass;
+  String? pass;
   String id;
   String sId;
 
   signupData(
-      {this.id = '',
-      required this.name,
-      required this.email,
-      required this.pass,
-      required this.sId});
+      {this.id = '', this.name, this.email, this.pass, required this.sId});
 
   Map<String, dynamic> toJson() =>
       {'id': id, 'name': name, 'email': email, 'pass': pass, 'sId': sId};

@@ -154,7 +154,7 @@ class _HomeBodyState extends State<HomeBody> {
         Row(
           children: [
             kwidth15,
-            appHeadings(content: "Good Morning , ${userName}"),
+            appHeadings(content: "Good Morning Learner"),
           ],
         ),
         kheigh20,
@@ -199,8 +199,8 @@ class _HomeBodyState extends State<HomeBody> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             kwidth10,
-            nothingButton(),
-            nothingButton(),
+            nothingButton("Course \nHistory"),
+            nothingButton("Nothing \nHere"),
             kwidth10,
           ],
         ),
@@ -216,7 +216,7 @@ class _HomeBodyState extends State<HomeBody> {
   }
 
 //-----------------------------------------------------Widgets--------------------------------------------------------
-  Container nothingButton() {
+  Container nothingButton(String name) {
     return Container(
       height: 148.h,
       width: 190.w,
@@ -229,7 +229,7 @@ class _HomeBodyState extends State<HomeBody> {
         child: Align(
           alignment: Alignment.bottomLeft,
           child: Text(
-            "Nothing \nHere",
+            "$name",
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
                 color: themeGreen,

@@ -41,7 +41,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
           ),
           kheight10,
           subHeading("New Password"),
-          textField(
+          ptextField(
             hint: "Enter Your Password",
             controller: passwordController,
             type: "Enter a proper Password",
@@ -49,7 +49,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
           ),
           kheight10,
           subHeading("Confirm Password"),
-          textField(
+          ptextField(
             hint: "Enter Your Password",
             controller: passwordController,
             type: "Enter a proper Password",

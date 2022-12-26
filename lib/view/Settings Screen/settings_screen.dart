@@ -49,13 +49,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
             kheigh20,
             InkWell(
                 onTap: () {
-                  googleSignIn.signOut();
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Confirmation"),
+                        content: Text("Are you sure you want to logout ?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Cancel"),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                googleSignIn.signOut();
+                                FirebaseAuth.instance.signOut();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginScreen(),
+                                    ),
+                                    (route) => false);
+                              },
+                              child: Text("Logout"))
+                        ],
+                      );
+                    },
                   );
                 },
                 child: headingss(heading: "Logout")),

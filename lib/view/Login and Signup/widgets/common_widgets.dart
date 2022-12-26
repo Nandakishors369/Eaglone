@@ -21,6 +21,7 @@ Row subHeading(String heading) {
 Padding textField(
     {required String hint,
     required TextEditingController controller,
+    required int len,
     // required var condition,
     required String? type,
     required TextInputType? keyboard}) {
@@ -29,7 +30,7 @@ Padding textField(
     child: TextFormField(
       keyboardType: keyboard,
       validator: (value) {
-        if (value == null || value.length < 3) {
+        if (value == null || value.length < len) {
           return "$type";
         }
       },
@@ -54,3 +55,50 @@ Padding textField(
     ),
   );
 }
+
+bool obstext = false;
+Padding ptextField(
+    {required String hint,
+    required TextEditingController controller,
+    // required var condition,
+    required String? type,
+    required TextInputType? keyboard}) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+    child: TextFormField(
+      keyboardType: keyboard,
+
+      obscureText: false,
+      validator: (value) {
+        if (value == null || value.length > 6) {
+          return null;
+        } else {
+          return "Enter a passowrd of atleast 8 charcters ";
+        }
+      },
+      controller: controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      cursorColor: kblack, //
+      decoration: InputDecoration(
+        hintText: "$hint",
+        hintStyle: GoogleFonts.karla(
+          textStyle: TextStyle(),
+        ),
+        focusColor: kblack,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: kgrey),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: kgrey),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
+    ),
+  );
+}
+
+var password = 'mypassword';
+
+final passwordRegex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$';
+final passwordValidator = RegExp(passwordRegex);

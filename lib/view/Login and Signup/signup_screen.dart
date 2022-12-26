@@ -14,6 +14,7 @@ import 'package:eaglone/view/Splash%20Screens/splash_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,19 +74,19 @@ class _SignupScreenState extends State<SignupScreen> {
                 kheight10,
                 subHeading("Name"),
                 textField(
-                  hint: "Enter Your Name",
-                  controller: nameController,
-                  type: "Enter a Name of 12 Characters",
-                  keyboard: TextInputType.name,
-                ),
+                    hint: "Enter Your Name",
+                    controller: nameController,
+                    type: "Enter a Name of atleas 3 Characters",
+                    keyboard: TextInputType.name,
+                    len: 3),
                 kheight10,
                 subHeading("E-Mail"),
                 textField(
-                  hint: "Enter Your Email",
-                  controller: emailController,
-                  type: "Enter a valid email",
-                  keyboard: TextInputType.emailAddress,
-                ),
+                    hint: "Enter Your Email",
+                    controller: emailController,
+                    type: "Enter a valid email",
+                    keyboard: TextInputType.emailAddress,
+                    len: 5),
                 kheight10,
                 /* subHeading("Phone"),
                 textField(
@@ -93,7 +94,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     controller: phoneController),
                 kheight10, */
                 subHeading("Password"),
-                textField(
+                ptextField(
                   hint: "Enter Your Password",
                   controller: passwordController,
                   type: "Enter a Password atleast 6 characters",
@@ -134,18 +135,28 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: () async {
                       final isValid = sformGlobalKey.currentState!.validate();
                       if (isValid) {
-                        signUpUser();
-                        createUser(
-                          name: nameController.text,
-                          email: emailController.text,
-                          pass: passwordController.text,
-                          //phone: phoneController.text,
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: CupertinoActivityIndicator(
+                                color: kblack,
+                              ),
+                            );
+                          },
                         );
+                        await signUpUser();
+                        log("signup");
+                        await createUser(
+                            name: nameController.text,
+                            email: emailController.text,
+                            pass: passwordController.text,
+                            context: context);
+                        log("data sent");
+
                         /*  phoneSignIn(); */
-
-                        nameController.clear();
                         emailController.clear();
-
+                        nameController.clear();
                         passwordController.clear();
                         cpasswordController.clear();
                       }
@@ -171,21 +182,13 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void signUpUser() async {
-    FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
-      email: emailController.text,
-      password: passwordController.text,
-      context: context,
-    );
-  }
-
-  Future createUser({
-    required String name,
-    required String email,
-    required String pass,
-  }) async {
+  Future createUser(
+      {String? name,
+      required String email,
+      required String pass,
+      required BuildContext context}) async {
     final User? user = auth.currentUser;
-    final uid = user!.uid;
+    String uid = user!.uid;
 
     final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
     final users = signupData(
@@ -202,7 +205,15 @@ class _SignupScreenState extends State<SignupScreen> {
 
     await docUser.set(json);
 
-    showSnackBar(context, 'its an exception');
+    //showSnackBar(context, 'its an exception');
+  }
+
+  Future signUpUser() async {
+    await FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+      email: emailController.text,
+      password: passwordController.text,
+      context: context,
+    );
   }
 
   /*  void phoneSignIn() {
