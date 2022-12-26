@@ -1,14 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eaglone/model/signup%20model/signup_model.dart';
 import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/ph_signup.dart';
+import 'package:eaglone/view/Login%20and%20Signup/signupuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/widgets/common_widgets.dart';
 import 'package:eaglone/view/Splash%20Screens/splash_screen.dart';
 import 'package:eaglone/view/const.dart';
+import 'package:eaglone/view/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ), */
-                //Lottie.asset('assets/38435-register (1).json', height: 180.h),
+                Lottie.asset('assets/registered.json', height: 320.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -68,26 +72,38 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 kheight10,
                 subHeading("Name"),
-                textField(hint: "Enter Your Name", controller: nameController),
+                textField(
+                  hint: "Enter Your Name",
+                  controller: nameController,
+                  type: "Enter a Name of 12 Characters",
+                  keyboard: TextInputType.name,
+                ),
                 kheight10,
                 subHeading("E-Mail"),
                 textField(
-                    hint: "Enter Your Email", controller: emailController),
+                  hint: "Enter Your Email",
+                  controller: emailController,
+                  type: "Enter a valid email",
+                  keyboard: TextInputType.emailAddress,
+                ),
                 kheight10,
-                subHeading("Phone"),
+                /* subHeading("Phone"),
                 textField(
                     hint: "Enter Your Phone Number",
                     controller: phoneController),
-                kheight10,
+                kheight10, */
                 subHeading("Password"),
                 textField(
-                    hint: "Enter Your Password",
-                    controller: passwordController),
-                kheight10,
+                  hint: "Enter Your Password",
+                  controller: passwordController,
+                  type: "Enter a Password atleast 6 characters",
+                  keyboard: TextInputType.visiblePassword,
+                ),
+                /* kheight10,
                 subHeading("Confirm-Password"),
                 textField(
                     hint: "Enter Your Password",
-                    controller: cpasswordController),
+                    controller: cpasswordController), */
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: Row(
@@ -99,7 +115,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => LoginUserScreen(),
+                                builder: (context) => LoginScreen(),
                               ));
                         },
                         child: Text(
@@ -123,16 +139,21 @@ class _SignupScreenState extends State<SignupScreen> {
                           name: nameController.text,
                           email: emailController.text,
                           pass: passwordController.text,
-                          phone: phoneController.text,
+                          //phone: phoneController.text,
                         );
-                        phoneSignIn();
+                        /*  phoneSignIn(); */
 
                         nameController.clear();
                         emailController.clear();
-                        phoneController.clear();
+
                         passwordController.clear();
                         cpasswordController.clear();
                       }
+                      await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ));
                     },
                     style:
                         ElevatedButton.styleFrom(backgroundColor: themeGreen),
@@ -158,34 +179,34 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Future createUser(
-      {required String name,
-      required String email,
-      required String pass,
-      required String phone}) async {
+  Future createUser({
+    required String name,
+    required String email,
+    required String pass,
+  }) async {
     final User? user = auth.currentUser;
     final uid = user!.uid;
-    final docUser = FirebaseFirestore.instance.collection('users').doc();
+
+    final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
     final users = signupData(
       name: name,
       email: email,
       pass: pass,
-      phone: phone,
       id: docUser.id,
       sId: uid,
     );
-    /*  final json = {
-      'name': name,
-      'age': 18,
-    }; */
+
     final json = users.toJson();
 
     //create doc and write data to firebase
+
     await docUser.set(json);
+
+    showSnackBar(context, 'its an exception');
   }
 
-  void phoneSignIn() {
+  /*  void phoneSignIn() {
     FirebaseAuthMethods(FirebaseAuth.instance)
         .phoneSignIn(context, phoneController.text.trim());
-  }
+  } */
 }

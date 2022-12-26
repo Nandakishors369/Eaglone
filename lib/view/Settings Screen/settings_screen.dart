@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:eaglone/services/firebase_auth_methods.dart';
+import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
+import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -44,13 +47,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
             kheigh20,
             headingss(heading: "App Settings"),
             kheigh20,
-            headingss(heading: "Logout"),
-            ElevatedButton(
-                onPressed: () {
+            InkWell(
+                onTap: () {
+                  googleSignIn.signOut();
                   FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
+                    ),
+                  );
+                },
+                child: headingss(heading: "Logout")),
+            /*  ElevatedButton(
+                onPressed: () {
+                  
                   //logoutUser(context: context);
                 },
-                child: Text("Logout"))
+                child: Text("Logout")) */
           ],
         ),
       )),

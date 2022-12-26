@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class UserAuth extends StatelessWidget {
+/* class UserAuth extends StatelessWidget {
   var ids;
   UserAuth({super.key, required this.ids});
 
@@ -42,7 +42,8 @@ class UserAuth extends StatelessWidget {
     }
   }
 
-  Widget buildUser(signupData datas) => ListTile(
+ /*  Widget buildUser(signupData datas) => ListTile(
         title: Text(datas.phone),
-      );
+      ); */
 }
+ */

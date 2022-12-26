@@ -62,8 +62,10 @@ class FirebaseAuthMethods {
   }
 
   //phone sign in
-  Future<void> phoneSignIn(BuildContext context, String phoneNumber) async {
+  /* Future<void> phoneSignIn(BuildContext context, String phoneNumber) async {
     TextEditingController codeController = TextEditingController();
+    String _verificationId = '';
+    int? _resendToken;
     await _auth.verifyPhoneNumber(
         phoneNumber: "+91${phoneNumber}",
         verificationCompleted: (PhoneAuthCredential credential) async {
@@ -73,6 +75,8 @@ class FirebaseAuthMethods {
           showSnackBar(context, e.message!);
         },
         codeSent: ((String verificationId, int? resendToken) async {
+          _verificationId = verificationId;
+          _resendToken = resendToken;
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -95,6 +99,10 @@ class FirebaseAuthMethods {
             ),
           );
         }),
-        codeAutoRetrievalTimeout: (verificationId) {});
-  }
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationId = _verificationId;
+        },
+        forceResendingToken: _resendToken,
+        timeout: const Duration(seconds: 10));
+  } */
 }

@@ -1,4 +1,4 @@
-import 'dart:ui';
+/* import 'dart:ui';
 
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
@@ -45,7 +45,7 @@ class OtpScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'A four digit OTP has been sent to your phone number\n +91 9074973331',
+                    'A four digit OTP has been sent to \nyour phone number',
                     style: GoogleFonts.poppins(
                         textStyle: TextStyle(fontSize: 15.sp)),
                   )
@@ -104,3 +104,4 @@ class OtpScreen extends StatelessWidget {
     );
   }
 }
+ */

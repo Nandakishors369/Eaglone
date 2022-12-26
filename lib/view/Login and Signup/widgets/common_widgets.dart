@@ -19,16 +19,19 @@ Row subHeading(String heading) {
 }
 
 Padding textField(
-    {required String hint, required TextEditingController controller}) {
+    {required String hint,
+    required TextEditingController controller,
+    // required var condition,
+    required String? type,
+    required TextInputType? keyboard}) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
     child: TextFormField(
+      keyboardType: keyboard,
       validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'Field is required';
+        if (value == null || value.length < 3) {
+          return "$type";
         }
-
-        return null;
       },
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,

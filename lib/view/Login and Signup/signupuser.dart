@@ -12,8 +12,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lottie/lottie.dart';
 
-/* class LoginUserScreen extends StatelessWidget {
-  const LoginUserScreen({super.key});
+class SignUpUserScreen extends StatelessWidget {
+  const SignUpUserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,35 +24,21 @@ import 'package:lottie/lottie.dart';
             if (snapshot.hasData) {
               return NavigationBarScreen();
             } else {
-              return LoginScreen();
-            }
-          }),
-    );
-  }
-}
- */
-  /* Future gotoHome(BuildContext context) async {
-    Timer(const Duration(seconds: 4), (() {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
-    }));
-  }
-} */
-
-
-/* 
- if (snapshot.hasData) {
-              return NavigationBarScreen();
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Something Went wrong'),
-              );
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              gotoHome(context);
               return Center(
                 child: CupertinoActivityIndicator(
                   color: kblack,
                 ),
               );
-            } else {
-              return LoginScreen();
-            } */
+            }
+          }),
+    );
+  }
+
+  Future gotoHome(BuildContext context) async {
+    Timer(const Duration(seconds: 4), (() {
+      /* Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginScreen())); */
+    }));
+  }
+}

@@ -5,6 +5,7 @@ import 'package:eaglone/view/Domain%20Search/Dsearch_screen.dart';
 import 'package:eaglone/view/Home%20Screen/premium_screen.dart';
 import 'package:eaglone/view/Home%20Screen/widgets.dart';
 import 'package:eaglone/view/const.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,10 +101,32 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+dynamic userData;
+String? userName;
+
+class _HomeBodyState extends State<HomeBody> {
+  void initState() {
+    userData = FirebaseAuth.instance.currentUser!;
+    nameCheck();
+    super.initState();
+  }
+
+  void nameCheck() {
+    if (userData.displayName == null) {
+      userName = "User";
+    } else {
+      userName = userData.displayName;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +154,7 @@ class HomeBody extends StatelessWidget {
         Row(
           children: [
             kwidth15,
-            appHeadings(content: "Good Morning , Malik"),
+            appHeadings(content: "Good Morning , ${userName}"),
           ],
         ),
         kheigh20,
