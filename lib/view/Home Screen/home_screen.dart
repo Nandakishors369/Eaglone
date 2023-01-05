@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:eaglone/services/news_services.dart';
 import 'package:eaglone/view/Domain%20Screen/domain_screen.dart';
 import 'package:eaglone/view/Domain%20Search/Dsearch_screen.dart';
 import 'package:eaglone/view/Home%20Screen/premium_screen.dart';

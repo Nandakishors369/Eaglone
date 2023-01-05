@@ -10,3 +10,12 @@ Text appHeadings({required String content}) {
         textStyle: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w600)),
   );
 }
+
+Text newsHeadings({required String content}) {
+  return Text(
+    "$content",
+    style: GoogleFonts.poppins(
+        textStyle: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w600)),
+    maxLines: 3,
+  );
+}

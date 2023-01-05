@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eaglone/model/product_model.dart';
 import 'package:eaglone/view/Paid%20Course%20Screen/const.dart';
 import 'package:eaglone/view/Paid%20Course%20Screen/produc_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -165,7 +170,7 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
     );
   }
 
-  Stack featuredCourses() {
+  featuredCourses() {
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -211,5 +216,23 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
         )
       ],
     );
+    /*  return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('products').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          log("Something went wrong");
+        } else if (snapshot.hasData) {
+          final products = snapshot.data?.docs.length;
+          
+          return 
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+       
+      },
+    ); 
+  } */
   }
 }

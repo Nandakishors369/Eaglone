@@ -12,7 +12,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lottie/lottie.dart';
 
-/* class LoginUserScreen extends StatelessWidget {
+class LoginUserScreen extends StatelessWidget {
   const LoginUserScreen({super.key});
 
   @override
@@ -30,7 +30,7 @@ import 'package:lottie/lottie.dart';
     );
   }
 }
- */
+ 
   /* Future gotoHome(BuildContext context) async {
     Timer(const Duration(seconds: 4), (() {
       Navigator.pushReplacement(context,
