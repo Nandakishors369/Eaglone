@@ -49,6 +49,7 @@ dependencies:
   pinput: ^2.2.0
   provider: ^6.0.5
   sliding_up_panel: ^2.0.0+1
+  url_launcher: ^6.1.7
 
 dev_dependencies:
   flutter_lints: ^2.0.0

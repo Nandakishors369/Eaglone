@@ -15,7 +15,7 @@ Text newsHeadings({required String content}) {
   return Text(
     "$content",
     style: GoogleFonts.poppins(
-        textStyle: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w600)),
+        textStyle: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600)),
     maxLines: 3,
   );
 }

@@ -1,15 +1,23 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:eaglone/model/post.dart';
 import 'package:eaglone/services/news_services.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -30,13 +38,17 @@ class _NewsScreenState extends State<NewsScreen> {
     final result = await getNewsData();
     log(result.title);
   } */
+  refreshh() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
+        child: CupertinoScrollbar(
+          child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               kheigh20,
               Row(
@@ -71,6 +83,8 @@ class _NewsScreenState extends State<NewsScreen> {
                               return newsCard(
                                   imageUrl,
                                   snapshot.data!.articles![index].title
+                                      .toString(),
+                                  snapshot.data!.articles![index].url
                                       .toString());
                             },
                             separatorBuilder: (context, index) {
@@ -78,11 +92,21 @@ class _NewsScreenState extends State<NewsScreen> {
                                 height: 10.h,
                               );
                             },
-                            itemCount: 50);
+                            itemCount: 100);
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Lottie.asset("assets/errorLottie.json"),
+                        );
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Center(
+                          child: CupertinoActivityIndicator(
+                            color: kblack,
+                          ),
+                        );
                       } else {
                         return Center(
-                          child: CircularProgressIndicator(),
-                        );
+                            child: Lottie.asset("assets/eaglone_loading.json"));
                       }
                     }),
               )
@@ -93,33 +117,41 @@ class _NewsScreenState extends State<NewsScreen> {
     );
   }
 
-  Padding newsCard(String? newsImage, String newsTitle) {
+  Padding newsCard(String? newsImage, String newsTitle, String url) {
     String imageLink =
         "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
       child: SizedBox(
-        width: 400.w,
-        height: 400.h,
-        child: Card(
-          elevation: 10,
-          child: Column(
-            children: [
-              Image.network(
-                newsImage ?? imageLink,
-                fit: BoxFit.cover,
-                height: 200,
-                width: 400,
+          width: 400.w,
+          height: 350.h,
+          child: Link(
+            target: LinkTarget.self,
+            uri: Uri.parse('google.com'),
+            builder: (context, followLink) => GestureDetector(
+              onTap: () async {
+                await _launchUrl(url: Uri.parse(url));
+              },
+              child: Card(
+                elevation: 10,
+                child: Column(
+                  children: [
+                    Image.network(
+                      newsImage.toString(),
+                      fit: BoxFit.cover,
+                      height: 200,
+                      width: 400,
+                    ),
+                    kheigh20,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: newsHeadings(content: newsTitle),
+                    )
+                  ],
+                ),
               ),
-              kheigh20,
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: newsHeadings(content: newsTitle),
-              )
-            ],
-          ),
-        ),
-      ),
+            ),
+          )),
     );
   }
 
@@ -127,4 +159,12 @@ class _NewsScreenState extends State<NewsScreen> {
     final _result = await getNewsData();
     log(_result.title);
   } */
+}
+
+Future<void> _launchUrl({
+  required url,
+}) async {
+  if (!await launchUrl(url)) {
+    throw 'Could not launch $url';
+  }
 }
