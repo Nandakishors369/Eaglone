@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'dart:ui';
 
+import 'package:animations/animations.dart';
+import 'package:eaglone/services/firebase_auth_methods.dart';
+import 'package:eaglone/services/getdata.dart';
 import 'package:eaglone/services/news_services.dart';
 import 'package:eaglone/view/Domain%20Screen/domain_screen.dart';
 import 'package:eaglone/view/Domain%20Search/Dsearch_screen.dart';
@@ -7,6 +12,7 @@ import 'package:eaglone/view/Home%20Screen/premium_screen.dart';
 import 'package:eaglone/view/Home%20Screen/widgets.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -25,6 +31,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,16 +54,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   kheight10,
                   DragIndicator(),
                   kheigh20,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        stacks(context, name: "Flutter", color: kblue),
-                        stacks(context, name: "MERN", color: kyellow)
-                      ],
-                    ),
-                  ),
+                  FutureBuilder(
+                      future: getAllProducts(),
+                      builder: (context, snapshot) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              stacks(context, name: "Flutter", color: kblue),
+                              stacks(context, name: "MERN", color: kyellow)
+                            ],
+                          ),
+                        );
+                      }),
                   kheigh20,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -255,27 +271,49 @@ GestureDetector stacks(BuildContext context,
             builder: (context) => DomainScreen(),
           ));
     },
-    child: Container(
-      decoration: BoxDecoration(
-          color: color, borderRadius: BorderRadius.circular(10.r)),
-      height: 124.h,
-      width: 190.w,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            "$name",
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                color: kwhite,
-                fontWeight: FontWeight.w500,
-                fontSize: 35.sp,
+    child: OpenContainer(
+      closedBuilder: (_, openContainer) {
+        return Container(
+          decoration: BoxDecoration(
+              color: color, borderRadius: BorderRadius.circular(10.r)),
+          height: 124.h,
+          width: 190.w,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "$name",
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                    color: kwhite,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 35.sp,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+        );
+      },
+      openColor: color,
+      // closedElevation: 50.0,
+      closedShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
+      closedColor: Colors.white,
+      openBuilder: (_, closeContainer) {
+        return DomainScreen(); /* Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.blue,
+                title: Text('Go back'),
+                leading: IconButton(
+                  onPressed: closeContainer,
+                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                ),
+              ),
+            ); */
+      },
     ),
   );
 }
@@ -292,3 +330,27 @@ class DragIndicator extends StatelessWidget {
     );
   }
 }
+
+
+// Container(
+//       decoration: BoxDecoration(
+//           color: color, borderRadius: BorderRadius.circular(10.r)),
+//       height: 124.h,
+//       width: 190.w,
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Align(
+//           alignment: Alignment.bottomLeft,
+//           child: Text(
+//             "$name",
+//             style: GoogleFonts.poppins(
+//               textStyle: TextStyle(
+//                 color: kwhite,
+//                 fontWeight: FontWeight.w500,
+//                 fontSize: 35.sp,
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     ),

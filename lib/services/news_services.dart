@@ -5,13 +5,14 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:eaglone/model/post.dart';
+import 'package:eaglone/view/api_keys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 Future<newsModel?> getNews() async {
   http.Response response;
   var url = Uri.parse(
-      "https://newsapi.org/v2/everything?q=programming&sortBy=relevancy&apiKey=7d955637261a46b7834bc083b5b08918");
+      "https://newsapi.org/v2/everything?q=programming&sortBy=relevancy&apiKey=$news_api");
 
   response = await http.get(url);
 

@@ -21,85 +21,87 @@ class DetailsScreen extends StatelessWidget {
         title: appHeadings(content: "Intorduction"),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            kheigh20,
-            /* Row(
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              kwidth15,
-              appHeadings(content: "Introduction"),
+              kheigh20,
+              /* Row(
+              children: [
+                kwidth15,
+                appHeadings(content: "Introduction"),
+              ],
+            ), */
+              //kheigh20,
+              details(),
+              kheigh20,
+              details(),
+              kheigh20,
+              details(),
+              kheigh20,
+              details(),
+              kheigh20,
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 60.h,
+                  width: 400.w,
+                  decoration: BoxDecoration(
+                    color: kblue,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        "Basic Instalation",
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: kwhite,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 25.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              kheigh20,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlaylistScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 60.h,
+                  width: 400.w,
+                  decoration: BoxDecoration(
+                    color: kblue,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        "Go to Tutorials",
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: kwhite,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 25.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
-          ), */
-            //kheigh20,
-            details(),
-            kheigh20,
-            details(),
-            kheigh20,
-            details(),
-            kheigh20,
-            details(),
-            kheigh20,
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                height: 60.h,
-                width: 400.w,
-                decoration: BoxDecoration(
-                  color: kblue,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "Basic Instalation",
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: kwhite,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            kheigh20,
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PlaylistScreen(),
-                  ),
-                );
-              },
-              child: Container(
-                height: 60.h,
-                width: 400.w,
-                decoration: BoxDecoration(
-                  color: kblue,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "Go to Tutorials",
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: kwhite,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );

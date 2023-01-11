@@ -1,3 +1,4 @@
+import 'package:eaglone/services/youtube_services.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,13 @@ class PlaylistScreen extends StatefulWidget {
 }
 
 class _PlaylistScreenState extends State<PlaylistScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getvideolist();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +75,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   kheigh20,
                   kheight10,
                   Text(
-                    "Title of the video",
+                    "hello",
                     style: GoogleFonts.poppins(),
                   ),
                 ],

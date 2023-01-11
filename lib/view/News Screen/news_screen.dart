@@ -139,8 +139,8 @@ class _NewsScreenState extends State<NewsScreen> {
                     Image.network(
                       newsImage.toString(),
                       fit: BoxFit.cover,
-                      height: 200,
-                      width: 400,
+                      height: 200.h,
+                      width: 400.w,
                     ),
                     kheigh20,
                     Padding(

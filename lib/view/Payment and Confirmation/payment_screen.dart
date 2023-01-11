@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:pay/pay.dart';
 
 import '../const.dart';
 
@@ -57,6 +60,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       appHeadings(content: "Choose Payment Method"),
                     ],
                   ),
+                  GooglePayButton(
+                      paymentConfigurationAsset: 'google_pay.json',
+                      onPaymentResult: onGooglePayResult,
+                      paymentItems: _paymentItems)
                 ],
               )),
             ),
@@ -122,4 +129,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
+}
+
+const _paymentItems = [
+  PaymentItem(
+    label: 'Total',
+    amount: '99.99',
+    status: PaymentItemStatus.final_price,
+  )
+];
+
+void onGooglePayResult(paymentResult) {
+  log(paymentResult);
+  log("worked ?");
 }

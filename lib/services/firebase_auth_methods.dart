@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eaglone/main.dart';
+import 'package:eaglone/model/free_courses.dart';
 import 'package:eaglone/view/Home%20Screen/home_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
@@ -128,4 +130,13 @@ class FirebaseAuthMethods {
         forceResendingToken: _resendToken,
         timeout: const Duration(seconds: 10));
   } */
+}
+
+Future<List<ProductModel>> getAllProducts() async {
+  final snapshot =
+      await FirebaseFirestore.instance.collection('freeCourses').get();
+  final productData =
+      snapshot.docs.map((e) => ProductModel.fromJson(e.data())).toList();
+  log(productData.toString());
+  return productData;
 }
