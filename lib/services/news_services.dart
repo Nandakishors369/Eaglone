@@ -27,6 +27,27 @@ Future<newsModel?> getNews() async {
   }
 }
 
+Future<sample?> getsample() async {
+  try {
+    http.Response response;
+    var url = Uri.parse("http://192.168.66.136:3000/nandu");
+    response = await http.get(url);
+    log(response.statusCode.toString());
+    if (response.statusCode == 200) {
+      log(" workingg");
+      log(response.body);
+      sample data = sample.fromJson(jsonDecode(response.body));
+      return data;
+    } else {
+      log("not working ");
+      throw Exception();
+    }
+  } catch (e) {
+    log(e.toString());
+    throw Exception();
+  }
+}
+
 /* Future<void> getNewsData() async {
   List<NewsModel> news = [];
   const url =
@@ -53,3 +74,19 @@ class News {
   String url =
       'https://newsapi.org/v2/everything?q=programming&apiKey=7d955637261a46b7834bc083b5b08918';
 } */
+
+class sample {
+  String? message;
+
+  sample({required this.message});
+
+  sample.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    return data;
+  }
+}

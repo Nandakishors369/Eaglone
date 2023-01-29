@@ -132,11 +132,12 @@ class FirebaseAuthMethods {
   } */
 }
 
-Future<List<ProductModel>> getAllProducts() async {
+/* Future<List<ProductModel>> getAllProducts() async {
   final snapshot =
       await FirebaseFirestore.instance.collection('freeCourses').get();
   final productData =
       snapshot.docs.map((e) => ProductModel.fromJson(e.data())).toList();
-  log(productData.toString());
+  log("all produictss");
+  //log(productData.toString());
   return productData;
-}
+} */

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/link.dart';
@@ -67,32 +68,50 @@ class _NewsScreenState extends State<NewsScreen> {
                     future: getNews(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return ListView.separated(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              String? imageUrl = snapshot
-                                  .data!.articles![index].urlToImage
-                                  .toString();
-                              //Newsdata();
-                              if (snapshot.data!.articles![index].urlToImage ==
-                                  null) {
-                                imageUrl =
-                                    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
-                              }
-                              return newsCard(
-                                  imageUrl,
-                                  snapshot.data!.articles![index].title
-                                      .toString(),
-                                  snapshot.data!.articles![index].url
-                                      .toString());
-                            },
-                            separatorBuilder: (context, index) {
-                              return SizedBox(
-                                height: 10.h,
-                              );
-                            },
-                            itemCount: 100);
+                        return AnimationLimiter(
+                          child: ListView.separated(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                String? imageUrl = snapshot
+                                    .data!.articles![index].urlToImage
+                                    .toString();
+                                //Newsdata();
+                                if (snapshot
+                                        .data!.articles![index].urlToImage ==
+                                    null) {
+                                  imageUrl =
+                                      "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+                                }
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  delay: Duration(milliseconds: 100),
+                                  child: SlideAnimation(
+                                    duration: Duration(milliseconds: 2500),
+                                    curve: Curves.fastLinearToSlowEaseIn,
+                                    horizontalOffset: 30,
+                                    verticalOffset: 300.0,
+                                    child: FlipAnimation(
+                                      duration: Duration(milliseconds: 3000),
+                                      curve: Curves.fastLinearToSlowEaseIn,
+                                      flipAxis: FlipAxis.y,
+                                      child: newsCard(
+                                          imageUrl,
+                                          snapshot.data!.articles![index].title
+                                              .toString(),
+                                          snapshot.data!.articles![index].url
+                                              .toString()),
+                                    ),
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return SizedBox(
+                                  height: 10.h,
+                                );
+                              },
+                              itemCount: 20),
+                        );
                       } else if (snapshot.hasError) {
                         return Center(
                           child: Lottie.asset("assets/errorLottie.json"),

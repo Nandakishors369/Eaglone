@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
+import 'package:eaglone/view/Settings%20Screen/Settings%20menu/profile_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +36,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
             kheigh20,
-            headingss(heading: "Edit Profile"),
+            headingss(
+              heading: "Edit Profile",
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ));
+              },
+            ),
             kheigh20,
             headingss(heading: "Course History"),
             kheigh20,
@@ -92,24 +102,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  SizedBox headingss({required String heading}) {
+  SizedBox headingss({required String heading, void Function()? onTap}) {
     return SizedBox(
-      height: 60,
+      height: 70,
       width: 400,
-      child: Card(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            kwidth15,
-            Text(
-              "$heading",
-              style: GoogleFonts.poppins(
-                  textStyle:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-            ),
-          ],
+      child: GestureDetector(
+        onTap: onTap,
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              kwidth15,
+              Text(
+                "$heading",
+                style: GoogleFonts.poppins(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              ),
+            ],
+          ),
+          elevation: 2,
         ),
-        elevation: 10,
       ),
     );
   }

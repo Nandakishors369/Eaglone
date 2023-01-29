@@ -1,16 +1,24 @@
 import 'dart:developer';
+//import 'dart:html';
 
 import 'dart:ui';
 
 import 'package:animations/animations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eaglone/Mongo%20Db/mongodb.dart';
+import 'package:eaglone/model/free_courses.dart';
 import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/services/getdata.dart';
 import 'package:eaglone/services/news_services.dart';
+import 'package:eaglone/services/youtube_services.dart';
 import 'package:eaglone/view/Domain%20Screen/domain_screen.dart';
 import 'package:eaglone/view/Domain%20Search/Dsearch_screen.dart';
 import 'package:eaglone/view/Home%20Screen/premium_screen.dart';
 import 'package:eaglone/view/Home%20Screen/widgets.dart';
+import 'package:eaglone/view/Paid%20Course%20Screen/const.dart';
+import 'package:eaglone/view/Settings%20Screen/Settings%20menu/profile_screen.dart';
 import 'package:eaglone/view/const.dart';
+import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +27,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-import '../widgets/common_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,7 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAllProducts();
+    //getDocuments();
+    postSignup();
+    getsample();
+    hello();
+  }
+
+  void hello() async {
+    log("working");
+    await getsample();
+    log("done");
   }
 
   @override
@@ -47,72 +62,69 @@ class _HomeScreenState extends State<HomeScreen> {
           minHeight: 335.h,
           maxHeight: 470.h,
           panel: Container(
-              decoration: BoxDecoration(
-                  color: kwhite, borderRadius: BorderRadius.circular(20.r)),
-              child: Column(
-                children: [
-                  kheight10,
-                  DragIndicator(),
-                  kheigh20,
-                  FutureBuilder(
-                      future: getAllProducts(),
-                      builder: (context, snapshot) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              stacks(context, name: "Flutter", color: kblue),
-                              stacks(context, name: "MERN", color: kyellow)
-                            ],
-                          ),
-                        );
-                      }),
-                  kheigh20,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        stacks(context, name: "Golang", color: kdgrey),
-                        stacks(context, name: "Python", color: kdblue)
-                      ],
-                    ),
+            decoration: BoxDecoration(
+                color: kwhite, borderRadius: BorderRadius.circular(20.r)),
+            child: Column(
+              children: [
+                kheight10,
+                DragIndicator(),
+                kheigh20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      stacks(context, name: 'Flutter', color: kblue),
+                      stacks(context, name: "MERN", color: kyellow)
+                    ],
                   ),
-                  kheigh20,
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DSearchScreen(),
-                          ));
-                    },
-                    child: Container(
-                      height: 60.h,
-                      width: 340.w,
-                      decoration: BoxDecoration(
-                          color: themeGreen,
-                          borderRadius: BorderRadius.circular(15.r)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text(
-                            "Explore All Courses",
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: kwhite,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 25.sp,
-                              ),
+                ),
+                kheigh20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      stacks(context, name: "Golang", color: kdgrey),
+                      stacks(context, name: "Python", color: kdblue)
+                    ],
+                  ),
+                ),
+                kheigh20,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DSearchScreen(),
+                        ));
+                  },
+                  child: Container(
+                    height: 60.h,
+                    width: 340.w,
+                    decoration: BoxDecoration(
+                        color: themeGreen,
+                        borderRadius: BorderRadius.circular(15.r)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          "Explore All Courses",
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: kwhite,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 25.sp,
                             ),
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
-              )),
+                  ),
+                )
+              ],
+            ),
+          ),
           body: HomeBody(),
         ));
   }
@@ -132,9 +144,9 @@ String? userName;
 
 class _HomeBodyState extends State<HomeBody> {
   void initState() {
-    userData = FirebaseAuth.instance.currentUser!;
+    /*  userData = FirebaseAuth.instance.currentUser!;
     nameCheck();
-    super.initState();
+    
   }
 
   void nameCheck() {
@@ -142,7 +154,7 @@ class _HomeBodyState extends State<HomeBody> {
       userName = "User";
     } else {
       userName = userData.displayName;
-    }
+    } */
   }
 
   @override
@@ -156,13 +168,28 @@ class _HomeBodyState extends State<HomeBody> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                backgroundColor: themeGreen,
-                radius: 25.r,
+              Text(
+                "EAGLONE",
+                style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                        letterSpacing: 5,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500)),
               ),
-              CircleAvatar(
-                backgroundColor: themeGreen,
-                radius: 25.r,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(),
+                      ));
+                },
+                child: CircleAvatar(
+                  backgroundColor: themeGreen,
+                  backgroundImage:
+                      AssetImage("assets/NicePng_avatar-png_8049853.png"),
+                  radius: 25.r,
+                ),
               )
             ],
           ),
@@ -196,16 +223,20 @@ class _HomeBodyState extends State<HomeBody> {
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "Explore Premium \nCourses",
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        color: kwhite,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30.sp,
-                      ),
-                    ),
-                  ),
+                  child: FutureBuilder<Object>(
+                      future: null,
+                      builder: (context, snapshot) {
+                        return Text(
+                          "Explore Premium \nCourses",
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: kwhite,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 30.sp,
+                            ),
+                          ),
+                        );
+                      }),
                 ),
               ),
             ),
@@ -216,8 +247,12 @@ class _HomeBodyState extends State<HomeBody> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             kwidth10,
-            nothingButton("Course \nHistory"),
-            nothingButton("Nothing \nHere"),
+            GestureDetector(
+                onTap: () {
+                  postSignup();
+                },
+                child: nothingButton("Course \nHistory")),
+            nothingButton("Your \nCourses"),
             kwidth10,
           ],
         ),
@@ -234,6 +269,7 @@ class _HomeBodyState extends State<HomeBody> {
 
 //-----------------------------------------------------Widgets--------------------------------------------------------
   Container nothingButton(String name) {
+    double width = MediaQuery.of(context).size.width;
     return Container(
       height: 148.h,
       width: 190.w,
