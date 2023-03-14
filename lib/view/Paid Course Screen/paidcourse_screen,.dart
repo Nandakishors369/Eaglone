@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eaglone/Mongo%20Db/mongodb.dart';
+import 'package:eaglone/model/mongo_model.dart';
 import 'package:eaglone/model/product_model.dart';
 import 'package:eaglone/view/Paid%20Course%20Screen/const.dart';
 import 'package:eaglone/view/Paid%20Course%20Screen/produc_screen.dart';
@@ -39,12 +41,21 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Iconsax.notification_bing),
+                    GestureDetector(
+                        onTap: () {
+                          getMongo();
+                        },
+                        child: Icon(Iconsax.notification_bing)),
                     Text(
                       "EAGLONE",
                       style: GoogleFonts.montserrat(textStyle: shopHeading),
                     ),
-                    Icon(Iconsax.shopping_cart),
+                    ////insert data to mongo db example
+                    GestureDetector(
+                        onTap: () {
+                          insertUser("Ruby", "799");
+                        },
+                        child: Icon(Iconsax.shopping_cart)),
                   ],
                 ),
               ),
@@ -197,12 +208,21 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
         Positioned(
           bottom: 40,
           left: 10,
-          child: Text(
-            "Node.js ",
-            style: GoogleFonts.poppins(
-                textStyle:
-                    TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500)),
-          ),
+          child: FutureBuilder(
+              future: getMongo(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var data = MongoModel.fromJson(snapshot.data![1]);
+                  return Text(
+                    data.name,
+                    style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                            fontSize: 20.sp, fontWeight: FontWeight.w500)),
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              }),
         ),
         Positioned(
           bottom: 20,

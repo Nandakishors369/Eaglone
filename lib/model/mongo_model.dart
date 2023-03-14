@@ -14,22 +14,18 @@ class MongoModel {
   MongoModel({
     required this.name,
     required this.price,
-    required this.imgLink,
   });
 
   String name;
   String price;
-  String imgLink;
 
   factory MongoModel.fromJson(Map<String, dynamic> json) => MongoModel(
         name: json["name"],
         price: json["price"],
-        imgLink: json["img_link"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "price": price,
-        "img_link": imgLink,
       };
 }
