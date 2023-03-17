@@ -236,23 +236,5 @@ class _PaidCourseScreenState extends State<PaidCourseScreen> {
         )
       ],
     );
-    /*  return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('products').snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          log("Something went wrong");
-        } else if (snapshot.hasData) {
-          final products = snapshot.data?.docs.length;
-          
-          return 
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-       
-      },
-    ); 
-  } */
   }
 }

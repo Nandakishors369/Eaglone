@@ -1,16 +1,6 @@
-import 'dart:async';
-
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
-import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
-import 'package:eaglone/view/Login%20and%20Signup/user_auth.dart';
-import 'package:eaglone/view/Navigation/navigation_bar.dart';
-import 'package:eaglone/view/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:lottie/lottie.dart';
 
 class LoginUserScreen extends StatelessWidget {
   const LoginUserScreen({super.key});
@@ -22,7 +12,7 @@ class LoginUserScreen extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return NavigationBarScreen();
+              return LoginScreen(); //nav bar
             } else {
               return LoginScreen();
             }

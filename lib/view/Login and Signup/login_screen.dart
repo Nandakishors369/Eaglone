@@ -10,6 +10,7 @@ import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/password_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
+import 'package:eaglone/view/Login%20and%20Signup/user_auth.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/utils/snackbar.dart';
@@ -72,11 +73,12 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () {
-                            resetPass(
+                          onPressed: () async {
+                            //await signUp();
+                            /* resetPass(
                               email: lemailController.text.trim(),
                               context: context,
-                            );
+                            ); */
 
                             /* Navigator.push(
                                 context,

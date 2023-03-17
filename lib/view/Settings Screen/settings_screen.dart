@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
+import 'package:eaglone/view/Login%20and%20Signup/user_auth.dart';
 import 'package:eaglone/view/Settings%20Screen/Settings%20menu/profile_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
@@ -38,12 +39,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             kheigh20,
             headingss(
               heading: "Edit Profile",
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                await signUp();
+                /*   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProfileScreen(),
-                    ));
+                    )); */
               },
             ),
             kheigh20,

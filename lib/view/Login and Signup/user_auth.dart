@@ -1,49 +1,72 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eaglone/model/signup%20model/signup_model.dart';
-import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 
-/* class UserAuth extends StatelessWidget {
-  var ids;
-  UserAuth({super.key, required this.ids});
+import 'package:eaglone/services/news_services.dart';
+import 'package:http/http.dart' as http;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<signupData?>(
-          future: readUser(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text("went wrong");
-            } else if (snapshot.hasData) {
-              final datat = snapshot.data;
+String baseUrl = "http://192.168.64.140:3000/test";
 
-              return datat == null
-                  ? Center(
-                      child: Text('No user'),
-                    )
-                  : buildUser(datat);
-            } else {
-              return CircularProgressIndicator();
-            }
-          }),
-    );
+Future signUp() async {
+  log("helloo");
+  final headers = {
+    "apiKey":
+        "bearer \$2b\$14\$Spul3qDosNUGfGA.AnYWl.W1DH4W4AnQsFrNVEKJi6.CsbgncfCUi"
+  };
+  final url = Uri.parse("http://192.168.64.140:3000/user-signup");
+  var body = {
+    "email": "nandakishormisc@gmail.com",
+    "password": "12345",
+    "mobile": "9074973331",
+    "name": "ajmla junaid"
+  };
+  http.Response response;
+  response = await http.post(url, headers: headers, body: body);
+  log("called$response");
+  log(response.body);
+  if (response.statusCode == 200) {
+    // log("Worked");
+    log(response.body);
+  } else {
+    //log("not worked");
+    log(response.statusCode.toString());
   }
+}
+ 
 
-  Future<signupData?> readUser() async {
-    //get signle documnet by ID
-    final docUser = FirebaseFirestore.instance.collection('users').doc(ids);
-    final snapshot = await docUser.get();
-    if (snapshot.exists) {
-      return signupData.fromJson(snapshot.data()!);
-    }
+/* signUp() async {
+  log("hello");
+  var request = http.Request('GET', Uri.parse('http://localhost:3000/test'));
+  request.body = '''''';
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString());
+  } else {
+    print(response.reasonPhrase);
   }
-
- /*  Widget buildUser(signupData datas) => ListTile(
-        title: Text(datas.phone),
-      ); */
 }
  */
+
+/* Future getsample() async {
+  log("hello");
+  try {
+    http.Response response;
+    var url = Uri.parse("http://192.168.64.140:3000/admin/categories");
+    response = await http.get(url);
+    log(response.body);
+    // log(response.statusCode.toString());
+    /*  if (response.statusCode == 200) {
+      log(" workingg");
+      log(response.body);
+      /* sample data = sample.fromJson(jsonDecode(response.body)); */
+    } else {
+      log("not working ");
+      throw Exception();
+    } */
+  } catch (e) {
+    log(e.toString());
+    throw Exception();
+  }
+} */
