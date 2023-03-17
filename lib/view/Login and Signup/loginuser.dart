@@ -12,7 +12,7 @@ class LoginUserScreen extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return LoginScreen(); //nav barr
+              return LoginScreen(); //nav barrrr
             } else {
               return LoginScreen();
             }
