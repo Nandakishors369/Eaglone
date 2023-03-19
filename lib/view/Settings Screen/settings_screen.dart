@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:eaglone/model/signup%20model/signup_model.dart';
 import 'package:eaglone/services/firebase_auth_methods.dart';
+import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/user_auth.dart';
@@ -40,7 +42,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             headingss(
               heading: "Edit Profile",
               onTap: () async {
-                await signUp();
                 /*   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -132,6 +133,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void logoutUser({required BuildContext context}) {
-    FirebaseAuthMethods(FirebaseAuth.instance).signout(context);
+    // FirebaseAuthMethods(FirebaseAuth.instance).signout(context);
   }
 }

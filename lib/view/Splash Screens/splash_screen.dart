@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
+import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => NavigationBarScreen() //LoginUserScreen(),
+              builder: (context) => LoginScreen() //LoginUserScreen(),
               ),
         );
       }),

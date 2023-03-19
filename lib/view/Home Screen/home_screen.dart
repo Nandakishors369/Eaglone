@@ -42,13 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     //getDocuments();
     postSignup();
-    getsample();
+    //getsample();
     hello();
   }
 
   void hello() async {
     log("working");
-    await getsample();
+    // await getsample();
     log("done");
   }
 

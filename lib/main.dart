@@ -3,6 +3,7 @@
 import 'package:eaglone/Mongo%20Db/mongodb.dart';
 import 'package:eaglone/firebase_options.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
+import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/Splash%20Screens/splash_screen.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:firebase_core/firebase_core.dart';

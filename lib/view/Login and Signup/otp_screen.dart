@@ -1,27 +1,31 @@
-/* import 'dart:ui';
+import 'dart:developer';
 
+import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
-import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
+import 'package:eaglone/view/utils/snackbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pinput/pinput.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/style.dart';
 
 class OtpScreen extends StatelessWidget {
-  TextEditingController codeController;
-  VoidCallback onPressed;
+  String email;
+  //VoidCallback onPressed;
+  //var otp;
   OtpScreen({
     super.key,
-    required this.codeController,
-    required this.onPressed,
+    required this.email,
+    //required this.onPressed,
   });
-
+  final UserAuth userAuth = UserAuth();
+  OtpFieldController otpController = OtpFieldController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,28 +59,56 @@ class OtpScreen extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            Pinput(
-              controller: codeController,
+            OTPTextField(
+              controller: otpController,
               length: 6,
-              defaultPinTheme: PinTheme(
-                width: 56.w,
-                height: 56.h,
-                textStyle: TextStyle(
-                    fontSize: 20.sp,
-                    color: Color.fromRGBO(30, 60, 87, 1),
-                    fontWeight: FontWeight.w600),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 141, 141, 141)),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
+              width: MediaQuery.of(context).size.width,
+              fieldWidth: 40.w,
+              style: TextStyle(fontSize: 17.sp),
+              textFieldAlignment: MainAxisAlignment.spaceAround,
+              fieldStyle: FieldStyle.underline,
+              onCompleted: (pin) async {
+                FutureBuilder(
+                  future: userAuth.verifyOtp(email: email, otp: pin),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CupertinoActivityIndicator(),
+                      );
+                    } else if (snapshot.hasData) {
+                      if (snapshot.data!.success == true) {
+                        return NavigationBarScreen();
+                      } else {
+                        return Center(
+                          child: Text("not success"),
+                        );
+                      }
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                );
+                /* await userAuth.verifyOtp(email: email, otp: pin);
+                if (userAuth.verified == true) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavigationBarScreen(),
+                    ),
+                  );
+                } else {
+                  Navigator.pop(context);
+                } */
+              },
             ),
             SizedBox(
               height: 20.h,
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => LoginUserScreen(),
@@ -89,19 +121,9 @@ class OtpScreen extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: onPressed,
-              child: Text(
-                "ok",
-                style: GoogleFonts.karla(
-                  textStyle: TextStyle(fontSize: 17.sp, color: themeGreen),
-                ),
-              ),
-            )
           ],
         ),
       )),
     );
   }
 }
- */

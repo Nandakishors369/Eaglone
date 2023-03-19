@@ -2,17 +2,11 @@
 
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eaglone/model/signup%20model/signup_model.dart';
-import 'package:eaglone/services/firebase_auth_methods.dart';
+import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
-import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
-import 'package:eaglone/view/Login%20and%20Signup/ph_signup.dart';
-import 'package:eaglone/view/Login%20and%20Signup/signupuser.dart';
+import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/widgets/common_widgets.dart';
-import 'package:eaglone/view/Splash%20Screens/splash_screen.dart';
 import 'package:eaglone/view/const.dart';
-import 'package:eaglone/view/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +28,8 @@ TextEditingController phoneController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController cpasswordController = TextEditingController();
 final sformGlobalKey = GlobalKey<FormState>();
-final FirebaseAuth auth = FirebaseAuth.instance;
+//final FirebaseAuth auth = FirebaseAuth.instance;
+final UserAuth userAuth = UserAuth();
 
 class _SignupScreenState extends State<SignupScreen> {
   @override
@@ -47,20 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // kwidth20,
-                /*   Row(
-                  // mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Image.asset(
-                      "assets/Untitled design (2).png", height: 100.h, width: 420.w,
-                      //height: 100,
-                    ),
-                  ],
-                ), */
-                Lottie.asset('assets/registered.json', height: 320.h),
+                Lottie.asset('assets/registered.json', height: 290.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -88,11 +70,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     keyboard: TextInputType.emailAddress,
                     len: 5),
                 kheight10,
-                /* subHeading("Phone"),
+                subHeading("Phone"),
                 textField(
                     hint: "Enter Your Phone Number",
-                    controller: phoneController),
-                kheight10, */
+                    controller: phoneController,
+                    keyboard: TextInputType.phone,
+                    len: 10,
+                    type: "Enter a valid number"),
+                kheight10,
                 subHeading("Password"),
                 ptextField(
                   hint: "Enter Your Password",
@@ -100,11 +85,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   type: "Enter a Password atleast 6 characters",
                   keyboard: TextInputType.visiblePassword,
                 ),
-                /* kheight10,
-                subHeading("Confirm-Password"),
-                textField(
-                    hint: "Enter Your Password",
-                    controller: cpasswordController), */
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: Row(
@@ -147,24 +127,46 @@ class _SignupScreenState extends State<SignupScreen> {
                         );
                         await signUpUser();
                         log("signup");
-                        await createUser(
+                        /*       await createUser(
                             name: nameController.text,
                             email: emailController.text,
                             pass: passwordController.text,
-                            context: context);
+                            context: context); */
                         log("data sent");
 
                         /*  phoneSignIn(); */
-                        emailController.clear();
-                        nameController.clear();
-                        passwordController.clear();
-                        cpasswordController.clear();
+
+                        if (userAuth.status != true) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Something Went Wrong"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Ok"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    OtpScreen(email: emailController.text),
+                              ));
+                        }
                       }
-                      await Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ));
+                      emailController.clear();
+                      nameController.clear();
+                      passwordController.clear();
+                      cpasswordController.clear();
+                      phoneController.clear();
                     },
                     style:
                         ElevatedButton.styleFrom(backgroundColor: themeGreen),
@@ -182,7 +184,15 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Future createUser(
+  Future signUpUser() async {
+    await userAuth.signup(
+        name: nameController.text,
+        email: emailController.text,
+        mobile: phoneController.text,
+        password: passwordController.text);
+  }
+
+  /*  Future createUser(
       {String? name,
       required String email,
       required String pass,
@@ -191,13 +201,13 @@ class _SignupScreenState extends State<SignupScreen> {
     String uid = user!.uid;
 
     final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
-    final users = signupData(
+    /* final users = signupData(
       name: name,
       email: email,
       pass: pass,
       id: docUser.id,
       sId: uid,
-    );
+    ); */
 
     final json = users.toJson();
 
@@ -208,16 +218,11 @@ class _SignupScreenState extends State<SignupScreen> {
     //showSnackBar(context, 'its an exception');
   }
 
-  Future signUpUser() async {
-    await FirebaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
-      email: emailController.text,
-      password: passwordController.text,
-      context: context,
-    );
-  }
 
   /*  void phoneSignIn() {
     FirebaseAuthMethods(FirebaseAuth.instance)
         .phoneSignIn(context, phoneController.text.trim());
   } */
+}
+ */
 }

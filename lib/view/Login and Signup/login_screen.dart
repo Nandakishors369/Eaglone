@@ -1,24 +1,9 @@
-import 'dart:developer';
-
-import 'dart:ui';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eaglone/model/signup%20model/signup_model.dart';
-import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
-import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
-import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
-import 'package:eaglone/view/Login%20and%20Signup/password_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
-import 'package:eaglone/view/Login%20and%20Signup/user_auth.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
-import 'package:eaglone/view/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -208,11 +193,11 @@ class LoginScreen extends StatelessWidget {
       required String password,
       required BuildContext context}) async {
     status = true;
-    await FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
+    /*  await FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
       email: email,
       password: password,
       context: context,
-    );
+    ); */
     lemailController.clear();
     lpassController.clear();
     nameController.clear();
@@ -225,11 +210,11 @@ class LoginScreen extends StatelessWidget {
           ), */
   }
 
-  Future resetPass(
+  /* Future resetPass(
       {required String email, required BuildContext context}) async {
     await FirebaseAuthMethods(FirebaseAuth.instance)
         .resetPassword(email: email, context: context);
-  }
+  } */
 }
 
 TextEditingController lemailController = TextEditingController();
