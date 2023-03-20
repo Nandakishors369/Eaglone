@@ -6,6 +6,7 @@ import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/widgets/common_widgets.dart';
+import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -115,7 +116,43 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: () async {
                       final isValid = sformGlobalKey.currentState!.validate();
                       if (isValid) {
-                        showDialog(
+                        FutureBuilder(
+                          future: userAuth.signup(
+                              name: nameController.text,
+                              email: emailController.text,
+                              mobile: phoneController.text,
+                              password: passwordController.text),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Center(
+                                    child: CupertinoActivityIndicator(
+                                      color: kblack,
+                                    ),
+                                  );
+                                },
+                              );
+                            } else if (snapshot.hasData) {
+                              if (snapshot.data!.success == true) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => OtpScreen(
+                                          email: emailController.text),
+                                    ));
+                              } else {
+                                log("log from signupscreen - failedd");
+                              }
+                            } else {
+                              return Text("");
+                            }
+                            return SizedBox.shrink();
+                          },
+                        );
+                        /*      showDialog(
                           context: context,
                           builder: (context) {
                             return Center(
@@ -160,9 +197,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                 builder: (context) =>
                                     OtpScreen(email: emailController.text),
                               ));
-                        }
+                        } */
                       }
-                      emailController.clear();
+                      // emailController.clear();
                       nameController.clear();
                       passwordController.clear();
                       cpasswordController.clear();

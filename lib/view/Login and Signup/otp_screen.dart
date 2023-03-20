@@ -1,13 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/loginuser.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
-import 'package:eaglone/view/utils/snackbar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -68,39 +70,17 @@ class OtpScreen extends StatelessWidget {
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.underline,
               onCompleted: (pin) async {
-                FutureBuilder(
-                  future: userAuth.verifyOtp(email: email, otp: pin),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CupertinoActivityIndicator(),
-                      );
-                    } else if (snapshot.hasData) {
-                      if (snapshot.data!.success == true) {
-                        return NavigationBarScreen();
-                      } else {
-                        return Center(
-                          child: Text("not success"),
-                        );
-                      }
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                );
-                /* await userAuth.verifyOtp(email: email, otp: pin);
+                await userAuth.verifyOtp(email: email, otp: pin);
                 if (userAuth.verified == true) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavigationBarScreen(),
-                    ),
-                  );
-                } else {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NavigationBarScreen(),
+                      ),
+                      (route) => false);
+                } else if (userAuth.verified == false) {
                   Navigator.pop(context);
-                } */
+                }
               },
             ),
             SizedBox(

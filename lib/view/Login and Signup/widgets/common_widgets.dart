@@ -99,7 +99,5 @@ Padding ptextField(
   );
 }
 
-var password = 'mypassword';
-
 final passwordRegex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$';
 final passwordValidator = RegExp(passwordRegex);

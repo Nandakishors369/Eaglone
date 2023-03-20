@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 class UserAuth {
   bool verified = false;
+  bool otpTrue = false;
   bool status = false;
   String baseUrl = "https://eaglone-api.onrender.com/user-signup";
 
@@ -53,8 +54,7 @@ class UserAuth {
     }
   }
 
-  Future<SignupResponse?> verifyOtp(
-      {required String email, required String otp}) async {
+  Future verifyOtp({required String email, required String otp}) async {
     String verifyUrl = "https://eaglone-api.onrender.com/verify-email";
     final url = Uri.parse(verifyUrl);
     final body = {"email": email, "otp": otp};
@@ -66,14 +66,14 @@ class UserAuth {
     try {
       http.Response response;
       response = await http.post(url, body: body, headers: headers);
-      SignupResponse signupResponse =
-          SignupResponse.fromJson(jsonDecode(response.body));
+
+      log("otp worked");
       if (response.statusCode == 200) {
         verified = true;
         log(response.body);
-        return signupResponse;
       } else {
         verified = false;
+        log(response.statusCode.toString());
         return null;
       }
     } catch (e) {
