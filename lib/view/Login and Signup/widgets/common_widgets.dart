@@ -71,7 +71,7 @@ Padding ptextField(
 
       obscureText: false,
       validator: (value) {
-        if (value == null || value.length > 6) {
+        if (value == null || value.length > 4) {
           return null;
         } else {
           return "Enter a passowrd of atleast 8 charcters ";
@@ -98,8 +98,6 @@ Padding ptextField(
     ),
   );
 }
-
-var password = 'mypassword';
 
 final passwordRegex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$';
 final passwordValidator = RegExp(passwordRegex);

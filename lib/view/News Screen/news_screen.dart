@@ -1,24 +1,15 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:eaglone/model/post.dart';
 import 'package:eaglone/services/news_services.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:eaglone/view/widgets/common_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});

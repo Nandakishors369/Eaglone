@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:eaglone/model/Authentication%20Model/signup_model.dart';
 import 'package:eaglone/services/firebase_auth_methods.dart';
+import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/user_auth.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -40,7 +43,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             headingss(
               heading: "Edit Profile",
               onTap: () async {
-                await signUp();
                 /*   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -75,15 +77,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: Text("Cancel"),
                           ),
                           TextButton(
-                              onPressed: () {
-                                googleSignIn.signOut();
-                                FirebaseAuth.instance.signOut();
+                              onPressed: () async {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                prefs.remove("token");
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => LoginScreen(),
                                     ),
                                     (route) => false);
+                                /* googleSignIn.signOut();
+                                FirebaseAuth.instance.signOut();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginScreen(),
+                                    ),
+                                    (route) => false); */
                               },
                               child: Text("Logout"))
                         ],
@@ -132,6 +143,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void logoutUser({required BuildContext context}) {
-    FirebaseAuthMethods(FirebaseAuth.instance).signout(context);
+    // FirebaseAuthMethods(FirebaseAuth.instance).signout(context);
   }
 }

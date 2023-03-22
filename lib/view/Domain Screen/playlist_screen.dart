@@ -19,7 +19,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getvideolist();
+    // getvideolist();
   }
 
   @override
