@@ -3,14 +3,17 @@ import 'dart:developer';
 import 'package:eaglone/model/signup%20model/signup_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAuth {
   bool verified = false;
   bool otpTrue = false;
   bool status = false;
+  bool gotToken = false;
+  late SharedPreferences token;
   String baseUrl = "https://eaglone-api.onrender.com/user-signup";
 
-  Future<SignupResponse> signup(
+  Future<SignupResponse?> signup(
       {required String name,
       required String email,
       required String mobile,
@@ -30,27 +33,25 @@ class UserAuth {
       http.Response response;
       log("Signup Started");
       response = await http.post(url, body: body, headers: headers);
+      log(response.body);
 
       if (response.statusCode == 200) {
         log("worked");
         status = true;
-        log(response.body);
 
         SignupResponse signupResponse =
             SignupResponse.fromJson(jsonDecode(response.body));
+
         return signupResponse;
       } else {
         status = false;
         log(response.statusCode.toString());
-
-        throw Exception();
+        ;
+        //throw Exception();
       }
     } catch (e) {
       log(e.toString());
-      throw Exception();
-    } finally {
-      log("Signup Completed");
-      log(status.toString());
+      // throw Exception();
     }
   }
 
@@ -68,8 +69,14 @@ class UserAuth {
       response = await http.post(url, body: body, headers: headers);
 
       log("otp worked");
+      log(response.body);
       if (response.statusCode == 200) {
         verified = true;
+        token = await SharedPreferences.getInstance();
+        var data = jsonDecode(response.body);
+
+        token.setString("token", data['token']);
+        log(token.toString());
         log(response.body);
       } else {
         verified = false;
@@ -79,7 +86,7 @@ class UserAuth {
     } catch (e) {
       verified = false;
       log(e.toString());
-      throw Exception();
+      //throw Exception();
     }
   }
 }

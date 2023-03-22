@@ -1,13 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
 import 'dart:developer';
 
+import 'package:eaglone/main.dart';
 import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/otp_screen.dart';
 import 'package:eaglone/view/Login%20and%20Signup/widgets/common_widgets.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
+import 'package:eaglone/view/utils/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ TextEditingController phoneController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController cpasswordController = TextEditingController();
 final sformGlobalKey = GlobalKey<FormState>();
+bool isLoading = false;
 //final FirebaseAuth auth = FirebaseAuth.instance;
 final UserAuth userAuth = UserAuth();
 
@@ -116,101 +119,62 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: () async {
                       final isValid = sformGlobalKey.currentState!.validate();
                       if (isValid) {
-                        FutureBuilder(
-                          future: userAuth.signup(
-                              name: nameController.text,
-                              email: emailController.text,
-                              mobile: phoneController.text,
-                              password: passwordController.text),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return Center(
-                                    child: CupertinoActivityIndicator(
-                                      color: kblack,
-                                    ),
-                                  );
-                                },
-                              );
-                            } else if (snapshot.hasData) {
-                              if (snapshot.data!.success == true) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => OtpScreen(
-                                          email: emailController.text),
-                                    ));
-                              } else {
-                                log("log from signupscreen - failedd");
-                              }
-                            } else {
-                              return Text("");
-                            }
-                            return SizedBox.shrink();
-                          },
-                        );
-                        /*      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Center(
-                              child: CupertinoActivityIndicator(
-                                color: kblack,
-                              ),
-                            );
-                          },
-                        );
-                        await signUpUser();
-                        log("signup");
-                        /*       await createUser(
+                        setState(() {
+                          isLoading = true;
+                        });
+                        var data = await userAuth.signup(
                             name: nameController.text,
                             email: emailController.text,
-                            pass: passwordController.text,
-                            context: context); */
-                        log("data sent");
-
-                        /*  phoneSignIn(); */
-
-                        if (userAuth.status != true) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text("Something Went Wrong"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("Ok"),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        } else {
-                          await Navigator.push(
+                            mobile: phoneController.text,
+                            password: passwordController.text);
+                        setState(() {
+                          isLoading = false;
+                        });
+                        log("loading finishedd");
+                        if (userAuth.status == true) {
+                          Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
                                     OtpScreen(email: emailController.text),
                               ));
-                        } */
+                        } else if (userAuth.status == false) {
+                          log("error at showdialog");
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Error'),
+                                content: Text(
+                                    "Something wen wrong please try again"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
                       // emailController.clear();
                       nameController.clear();
+                      // emailController.clear();
                       passwordController.clear();
                       cpasswordController.clear();
                       phoneController.clear();
                     },
                     style:
                         ElevatedButton.styleFrom(backgroundColor: themeGreen),
-                    child: Text(
-                      "Continue",
-                      style: GoogleFonts.poppins(),
-                    ),
+                    child: isLoading
+                        ? CupertinoActivityIndicator()
+                        : Text(
+                            "Continue",
+                            style: GoogleFonts.poppins(),
+                          ),
                   ),
                 ),
               ],
@@ -263,3 +227,7 @@ class _SignupScreenState extends State<SignupScreen> {
 }
  */
 }
+
+
+//email controller
+//shared prefss

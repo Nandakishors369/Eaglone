@@ -1,14 +1,39 @@
+import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/login_screen.dart';
+import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginUserScreen extends StatelessWidget {
-  const LoginUserScreen({super.key});
+class LoginUserScreen extends StatefulWidget {
+  LoginUserScreen({super.key});
+
+  @override
+  State<LoginUserScreen> createState() => _LoginUserScreenState();
+}
+
+class _LoginUserScreenState extends State<LoginUserScreen> {
+  UserAuth userAuth = UserAuth();
+
+  bool auth = false;
+
+  checkLogin() {
+    if (userAuth.token == null) {
+      setState(() {
+        auth == false;
+      });
+    } else {
+      setState(() {
+        auth == true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<User?>(
+      body: auth ? NavigationBarScreen() : LoginScreen(),
+
+      /* StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -16,7 +41,7 @@ class LoginUserScreen extends StatelessWidget {
             } else {
               return LoginScreen();
             }
-          }),
+          }), */
     );
   }
 }

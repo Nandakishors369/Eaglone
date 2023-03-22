@@ -79,7 +79,22 @@ class OtpScreen extends StatelessWidget {
                       ),
                       (route) => false);
                 } else if (userAuth.verified == false) {
-                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Verification Failed"),
+                        content: Text("Verification failed please try again"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Ok"))
+                        ],
+                      );
+                    },
+                  );
                 }
               },
             ),
@@ -88,11 +103,11 @@ class OtpScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                /* Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => LoginUserScreen(),
-                    ));
+                    )); */
               },
               child: Text(
                 "Resend OTP",
