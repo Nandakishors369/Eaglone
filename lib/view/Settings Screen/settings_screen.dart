@@ -15,6 +15,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -76,15 +77,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: Text("Cancel"),
                           ),
                           TextButton(
-                              onPressed: () {
-                                googleSignIn.signOut();
-                                FirebaseAuth.instance.signOut();
+                              onPressed: () async {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                prefs.remove("token");
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => LoginScreen(),
                                     ),
                                     (route) => false);
+                                /* googleSignIn.signOut();
+                                FirebaseAuth.instance.signOut();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginScreen(),
+                                    ),
+                                    (route) => false); */
                               },
                               child: Text("Logout"))
                         ],

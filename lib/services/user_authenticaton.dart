@@ -10,7 +10,7 @@ class UserAuth {
   bool otpTrue = false;
   bool status = false;
   bool gotToken = false;
-  late SharedPreferences token;
+
   String baseUrl = "https://eaglone-api.onrender.com/user-signup";
 
   Future<SignupResponse?> signup(
@@ -46,8 +46,6 @@ class UserAuth {
       } else {
         status = false;
         log(response.statusCode.toString());
-        ;
-        //throw Exception();
       }
     } catch (e) {
       log(e.toString());
@@ -56,6 +54,7 @@ class UserAuth {
   }
 
   Future verifyOtp({required String email, required String otp}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     String verifyUrl = "https://eaglone-api.onrender.com/verify-email";
     final url = Uri.parse(verifyUrl);
     final body = {"email": email, "otp": otp};
@@ -72,11 +71,11 @@ class UserAuth {
       log(response.body);
       if (response.statusCode == 200) {
         verified = true;
-        token = await SharedPreferences.getInstance();
+
         var data = jsonDecode(response.body);
 
-        token.setString("token", data['token']);
-        log(token.toString());
+        prefs.setString("token", data['token']);
+        otpTrue = true;
         log(response.body);
       } else {
         verified = false;

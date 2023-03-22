@@ -2,7 +2,7 @@ import 'dart:developer';
 //import 'dart:html';
 
 import 'dart:ui';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eaglone/Mongo%20Db/mongodb.dart';
@@ -10,6 +10,7 @@ import 'package:eaglone/model/free_courses.dart';
 import 'package:eaglone/services/firebase_auth_methods.dart';
 import 'package:eaglone/services/getdata.dart';
 import 'package:eaglone/services/news_services.dart';
+import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/services/youtube_services.dart';
 import 'package:eaglone/view/Domain%20Screen/domain_screen.dart';
 import 'package:eaglone/view/Domain%20Search/Dsearch_screen.dart';
@@ -177,7 +178,11 @@ class _HomeBodyState extends State<HomeBody> {
                         fontWeight: FontWeight.w500)),
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.getString("token");
+                  log(prefs.getString("token").toString());
                   Navigator.push(
                       context,
                       MaterialPageRoute(
