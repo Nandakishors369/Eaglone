@@ -1,8 +1,10 @@
+import 'package:eaglone/services/user_authenticaton.dart';
 import 'package:eaglone/view/Login%20and%20Signup/google_login.dart';
 import 'package:eaglone/view/Login%20and%20Signup/signup_screen.dart';
 import 'package:eaglone/view/Navigation/navigation_bar.dart';
 import 'package:eaglone/view/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +13,17 @@ import 'package:provider/provider.dart';
 
 import 'widgets/common_widgets.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  UserAuth userAuth = UserAuth();
+
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +102,17 @@ class LoginScreen extends StatelessWidget {
                           final isValid =
                               lformGlobalKey.currentState!.validate();
                           if (isValid) {
+                            setState(() {
+                              _isLoading = true;
+                            });
                             await loginUser(
                               email: lemailController.text,
                               password: lpassController.text,
                               context: context,
                             );
+                            setState(() {
+                              _isLoading = true;
+                            });
 
                             /*  if (snapshot.hasData) {
                               Navigator.pushReplacement(
@@ -150,10 +167,12 @@ class LoginScreen extends StatelessWidget {
                         },
                         style:
                             ElevatedButton.styleFrom(backgroundColor: kblack),
-                        child: Text(
-                          "Continue With Google",
-                          style: GoogleFonts.poppins(),
-                        ),
+                        child: _isLoading
+                            ? CupertinoActivityIndicator()
+                            : Text(
+                                "Continue With Google",
+                                style: GoogleFonts.poppins(),
+                              ),
                       ),
                     ),
                     Padding(
@@ -193,11 +212,34 @@ class LoginScreen extends StatelessWidget {
       required String password,
       required BuildContext context}) async {
     status = true;
-    /*  await FirebaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
-      email: email,
-      password: password,
-      context: context,
-    ); */
+    var data = await userAuth.loginUser(email: email, password: password);
+    if (userAuth.loginStatus == true) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NavigationBarScreen(),
+        ),
+      );
+    } else {
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(data),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
     lemailController.clear();
     lpassController.clear();
     nameController.clear();
@@ -209,12 +251,6 @@ class LoginScreen extends StatelessWidget {
             ),
           ), */
   }
-
-  /* Future resetPass(
-      {required String email, required BuildContext context}) async {
-    await FirebaseAuthMethods(FirebaseAuth.instance)
-        .resetPassword(email: email, context: context);
-  } */
 }
 
 TextEditingController lemailController = TextEditingController();

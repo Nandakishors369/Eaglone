@@ -39,6 +39,17 @@ class _LoginUserScreenState extends State<LoginUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
+      body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return LoginScreen(); //nav barrrr
+            } else {
+              return LoginScreen();
+            }
+          }),
+=======
       body: /* auth ? NavigationBarScreen() : const LoginScreen(), */
 
           FutureBuilder(
@@ -47,9 +58,10 @@ class _LoginUserScreenState extends State<LoginUserScreen> {
                 if (snapshot.data == true) {
                   return NavigationBarScreen(); //nav barr
                 } else {
-                  return const LoginScreen();
+                  return LoginScreen();
                 }
               }),
+>>>>>>> authentication
     );
   }
 }
